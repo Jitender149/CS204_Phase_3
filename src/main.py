@@ -82,8 +82,10 @@ if __name__ == '__main__':
                 for i in range(32):
                     print("R" + str(i) + ":", processor.registers[i], end=" ")
                     print("\n")
-            pc_tmp.append([-1, -1, -1, -1, curr_instruction.PC])
-
+            pc_tmp.append([-1, -1, -1, -1, curr_instruction.PC]) 
+            # in non pipelined mode, only one instruction is active at a time and it is in the fetch stage at this point
+            # and u understand that first -1 corresponds to WB, then MEM , then EX, then ID and then IF finally as in this order these enter the pipline cycle
+            # DECODE STAGE
             processor.decode(curr_instruction)
             clock_cycles +=1
             if print_registers_each_cycle:

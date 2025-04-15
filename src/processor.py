@@ -142,7 +142,7 @@ class processor:
     def decode(self, state, *args):
         code = ''
         if state.stall == True:
-            return False, 0, False, 0
+            return False, 0, False, 0 # whether a control hazard is detected, number of stalls, whether a branch is taken, number of branches
         
         if state.IR == '0x00000000':
             self.terminate = True
@@ -154,7 +154,7 @@ class processor:
 
         for i in range(15):
             state.ALU_OP[i] = False
-
+        # converting the instruction to binary format
         instruction = bin(int(state.IR[2:], 16))[2:]
         instruction = (32-len(instruction)) * '0' + instruction
 
@@ -165,7 +165,8 @@ class processor:
         # R Format
         if(opcode == '0110011'):
             state.generateControlSignals(True, False, 0, False, False, False, True, False, 4)
-            state.RD = int(instruction[20:25], 2)
+            # For R-type instructions, the operation is always performed on the full width of the register, which is 32 bits (4 bytes).
+            state.RD = int(instruction[20:25], 2) # here 2 is the base argument
             state.RS1 = int(instruction[12:17], 2)
             state.RS2 = int(instruction[7:12], 2)
             func7 = int(instruction[0:7], 2)
@@ -256,9 +257,10 @@ class processor:
             else:
                 print("Unknown instruction")
 
-            state.RA = nint(self.registers[state.RS1][2:], 16)
+            state.RA = nint(self.registers[state.RS1][2:], 16) # [2:] is used to remove the '0x' prefix and 16 is the base argument
             state.RB = nint(self.registers[state.RS2][2:], 16)
-            self.ALU_instructions += 1
+            # we got the operands for the ALU operation above
+            self.ALU_instructions += 1 # increment the ALU instructions count
             
         # I Format
         elif(opcode == '0010011' or opcode == '0000011' or opcode == '1100111'):
@@ -267,14 +269,14 @@ class processor:
             state.Imm = int(instruction[0:12],2)
             
             if(state.Imm > 2047):
-                state.Imm -= 4096
+                state.Imm -= 4096 # sign extension
                 
             # LB/LH/LW
             if(opcode == '0000011'):
                 state.ALU_OP[0] = True
                 # LB Instruction
                 if(func3 == 0x0):
-                    state.generateControlSignals(True,True,1,True,False,False,True,False,1)
+                    state.generateControlSignals(True,True,1,True,False,False,True,False,1)  # as loading byte, we need to read 1 byte from the memory
                     code = 'LB x' + str(state.RD) + ', ' + str(state.Imm) + '(x' + str(state.RS1) + ')'
                 # LH Instruction
                 elif(func3 == 0x1):
@@ -282,18 +284,20 @@ class processor:
                     code = 'LH x' + str(state.RD) + ', ' + str(state.Imm) + '(x' + str(state.RS1) + ')'
                 # LW Instruction
                 elif(func3 == 0x2):
-                    state.generateControlSignals(True,True,1,True,False,False,True,False,4)
+                    state.generateControlSignals(True,True,1,True,False,False,True,False,4)  # as loading word, we need to read 4 bytes from the memory
                     code = 'LW x' + str(state.RD) + ', ' + str(state.Imm) + '(x' + str(state.RS1) + ')'
                 else:
                     print("Unknown instruction")
                     exit(1)
             
-                state.RA = int(self.registers[state.RS1][2:], 16)
+                state.RA = int(self.registers[state.RS1][2:], 16)  # refer to the updated_data&control_path to understand this better
                 self.memory_instructions += 1
             
             # ADDI/ANDI/ORI/XORI/SLLI/SRLI
             elif(opcode == '0010011'):
                 state.generateControlSignals(True,True,0,False,False,False,True,False,4)
+                # even though the immediate is 12 bits, we are using 32 bits for the ALU operation as the immediate is sign extended to 32 bits
+                # The 4 (last argument) is for numBytes, which tells the processor that the operation (and any data movement, if relevant) is on a 4-byte (32-bit) word.
                 # ADDI Instruction
                 if(func3 == 0x0):
                     state.ALU_OP[0] = True
@@ -320,7 +324,7 @@ class processor:
                     code = 'SRLI x' + str(state.RD) + ', x' + str(state.RS1) + ', ' + str(state.Imm)
                 else:
                     print("Unknown instruction")
-                state.RA = nint(self.registers[state.RS1][2:], 16)
+                state.RA = nint(self.registers[state.RS1][2:], 16) # refer as above
                 self.ALU_instructions += 1
             
             # JALR
@@ -334,11 +338,11 @@ class processor:
                     print("Unknown Error")
                     exit(1)
                 state.isbranch=1
-                state.RA = nint(self.registers[state.RS1][2:], 16)
-                state.return_address = state.RA
-                self.return_address = state.RA
-                self.MuxPC_select = True
-                self.control_instructions += 1
+                state.RA = nint(self.registers[state.RS1][2:], 16)  # load RS1 as the base address
+                state.return_address = state.RA # return address is the base address    
+                self.return_address = state.RA # return address is the base address
+                self.MuxPC_select = True # select the base address as the PC source
+                self.control_instructions += 1 # ofc this is a control instruction
                 state.registerData = state.PC + 4
         
         # S Format

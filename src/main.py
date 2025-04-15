@@ -3,6 +3,7 @@ from state import *
 from btb import *
 from hdu import *
 
+# Global lists to track program counter, hazards and control signals
 pc_tmp = []
 dataHazardPairs = []
 controlHazardSignals = []
@@ -34,28 +35,28 @@ if __name__ == '__main__':
             if len(x)==1:
                 knobs.append(True)
             else:
-                knobs.append([True,x[1]])
+                knobs.append([True,x[1]]) # True with additional parameters
         
         else:
             if len(x)==1:
                 knobs.append(False)
             else:
-                knobs.append([False,x[1]])
-
+                knobs.append([False,x[1]]) # Fasle with additional parameters
+                # for the last line of the input.txt file, ie which pipline register to print 
     knob_input.close()
     # Knobs
     pipelining_knob=knobs[0]  # knob1
     forwarding_knob=knobs[1]   # knob2
     print_registers_each_cycle=knobs[2]    # knob3
     print_pipeline_registers=knobs[3]   # knob4
-    print_specific_pipeline_registers =knobs[4]  # knob5
+    print_specific_pipeline_registers=knobs[4]  # knob5
     # Various Counts
     stalls_due_to_data_hazard = 0
     number_of_data_hazards = 0
     stalls_due_to_control_hazard = 0
     totalStalls = 0
 
-    #initial calling of classes.
+    # initializing the classes
     processor = processor(file1)
     hdu=HDU()
     btb=BTB()
@@ -66,11 +67,13 @@ if __name__ == '__main__':
     prog_end = False
 
     if not pipelining_knob:
-
+        # pipelining is disabled
         processor.pipeliningEnabled=False
         while True:
 
-            curr_instruction=State(PC)
+            curr_instruction=State(PC) # creating a new state object for the current instruction
+
+            # FETCH STAGE
             processor.fetch(curr_instruction)
             clock_cycles +=1
             if print_registers_each_cycle:

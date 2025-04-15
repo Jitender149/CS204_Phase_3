@@ -4,35 +4,38 @@ from utility import *
 class processor:
     def __init__(self, file1):
         self.dataMemory = defaultdict(lambda: '00') # initialising data memory
+        # we made datamemory using dafultdict and 00 represent a zero byte in hex and this doesnt raises the key error (IMP)
         self.instructionMemory = defaultdict(lambda: '00') # initialising instruction memory
         self.registers = ['0x00000000' for i in range(32)] # initialising registers
         self.registers[2]='0x7FFFFFF0' # sp
         self.registers[3]='0x10000000' # gp
-        self.loadProgramMemory(file1) # read program.mc file to load our data and intruction memory
+        self.loadProgramMemory(file1) # read demofile.txt file to load our data and intruction memory
         self.pipeliningEnabled = False # knob for pipelining
         self.PC_next = 0 # Next PC address
         self.PC_offset = 0 # PC offset
         self.return_address = -1 # return address
         self.terminate = False # flag to terminate the program
         # Control Signals
-        self.registerWrite=False
-        self.MuxB_select=False
-        self.MuxY_select=0
-        self.mem_write=False
-        self.mem_read=False
-        self.MuxMA_select=False
-        self.MuxPC_select=False
-        self.MuxINC_select=False
-        self.numBytes=0
+        self.registerWrite=False 
+        self.MuxB_select=False # control the second ALU input, when false uses register value, else use immediate value
+        self.MuxY_select=0 # control the write back data source, when 0 uses ALU result, when 1 uses memory data, when 2 uses PC+4
+        self.mem_write=False # control the write enable of data memory
+        self.mem_read=False # control the read enable of data memory
+        self.MuxMA_select=False # control the address source, when false uses ALU result, else uses PC+4
+        self.MuxPC_select=False # control the PC source, when false uses PC+4, else uses return address
+        self.MuxINC_select=False # control the PC increment source, when false uses PC+4, else uses PC offset
+        self.numBytes=0 # number of bytes to read/write from/to memory
         # Counts
         self.Total_instructions=0 # Total number of instructions executed
         self.ALU_instructions=0 # Total number of ALU instructions executed
         self.memory_instructions=0  # Total number of memory instructions executed
         self.control_instructions=0 # Total number of control instructions executed
         self.branch_misprediction=0 # Total number of branch mispredictions
-        
-        self.allStall=False
-        self.riscvCode = defaultdict(lambda: -1)
+        # ALU : add, sub, mul, div, rem, and, or, xor, sll, srl, sra, slt, lt, gt
+        # Memory : lb, lh, lw, sb, sh, sw
+        # Control : jalr, jal, beq, bne, blt, bge, bltu, bgeu...so on
+        self.allStall=False # control global pipline stalling, when true, all stages are stalled, when false, pipeline is free to run
+        self.riscvCode = defaultdict(lambda: -1) # dictionary to store the riscv code
 
     def reset(self, *args):
         if len(args) > 0:
@@ -47,7 +50,7 @@ class processor:
             self.PC_offset = 0
             self.return_address = 0
     
-    # Function to populate the instruction & data memory using the program.mc file    
+    # Function to populate the instruction & data memory using the demofile.txt file    
     def loadProgramMemory(self, file1):
         try:
             fp = open(file1, 'r')
@@ -59,19 +62,20 @@ class processor:
                     if(instruction == '$'):
                         flag = False
                         continue
-                    if(flag):
-                        idx = int(address[2:], 16)
-                        self.instructionMemory[idx] = instruction[8:10]
-                        self.instructionMemory[idx+1] = instruction[6:8]
-                        self.instructionMemory[idx+2] = instruction[4:6]
-                        self.instructionMemory[idx+3] = instruction[2:4]
-                    else:
-                        idx = int(address[2:], 16)
-                        instruction = '0x' + (10 - len(instruction))*'0' + instruction[2:]
-                        self.dataMemory[idx] = instruction[8:10]
-                        self.dataMemory[idx+1] = instruction[6:8]
-                        self.dataMemory[idx+2] = instruction[4:6]
-                        self.dataMemory[idx+3] = instruction[2:4]
+                    # till flag is true, we are loading the instruction memory
+                    if(flag):   # little endian format
+                        idx = int(address[2:], 16) # convert hex address to integer
+                        self.instructionMemory[idx] = instruction[8:10]  # byte 3
+                        self.instructionMemory[idx+1] = instruction[6:8]  # byte 2
+                        self.instructionMemory[idx+2] = instruction[4:6]  # byte 1
+                        self.instructionMemory[idx+3] = instruction[2:4]  # byte 0
+                    else:  # flag is false, we are loading the data memory
+                        idx = int(address[2:], 16) # convert hex address to integer 
+                        instruction = '0x' + (10 - len(instruction))*'0' + instruction[2:] # convert instruction to hex
+                        self.dataMemory[idx] = instruction[8:10] # byte 3
+                        self.dataMemory[idx+1] = instruction[6:8] # byte 2
+                        self.dataMemory[idx+2] = instruction[4:6] # byte 1
+                        self.dataMemory[idx+3] = instruction[2:4] # byte 0
         except:
             print(f"Error: Unable to open {file1} file.\n")
             exit(1)
@@ -102,19 +106,19 @@ class processor:
             exit()
 
     # Fetch
-    def fetch(self, state, *args):
-        if state.stall == True:
+    def fetch(self, state, *args): # variable length argument list,used for passing the BTB object
+        if state.stall == True: # This prevents processing the instruction if the pipeline is stalled
             return
         state.IR = '0x' + self.instructionMemory[state.PC + 3] + self.instructionMemory[state.PC + 2] + self.instructionMemory[state.PC + 1] + self.instructionMemory[state.PC]
-        
-        if self.allStall:
-            state.stall=True
+        # fetching the instruction from the instruction memory using the PC address
+        if self.allStall: # check if entire pipeline is stalled
+            state.stall=True # if so, mark current instruction as stalled
             return
 
-        if not self.pipeliningEnabled:
+        if not self.pipeliningEnabled: # if pipelining is disabled, return as no need of branch prediction in non pipelined mode
             return
-        
-        btb=args[0]
+        # Branch Prediction
+        btb=args[0] # BTB object is passed as an argument
         if btb.find(state.PC):
             state.branch_taken=btb.predict(state.PC)
             if state.branch_taken:

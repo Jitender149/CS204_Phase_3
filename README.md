@@ -1,6 +1,5 @@
-<<<<<<< HEAD
 # RISC-V Simulator
-## Phase 2 (Pipelined Implementation)
+## Phase 3 (Pipelined Implementation)
 ### Overview
 This is a RISC-V simulator which supports piplined execution of instructions. There are various input knobs that can be set by the user to enable/disable pipelining, data forwarding, printing register file and printing pipeline registers for all or a specific instruction.
 
@@ -48,4 +47,3 @@ phase-2
 Read the `design-doc.docx` for more information about the implementation.
 =======
 # CS204_Phase_3
->>>>>>> 3ebcbc2a67b4a354b871f7af610c7331cc3deda6

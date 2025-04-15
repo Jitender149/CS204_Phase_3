@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # RISC-V Simulator
 ## Phase 2 (Pipelined Implementation)
 ### Overview
@@ -45,3 +46,6 @@ phase-2
 
 ### Documentation
 Read the `design-doc.docx` for more information about the implementation.
+=======
+# CS204_Phase_3
+>>>>>>> 3ebcbc2a67b4a354b871f7af610c7331cc3deda6

@@ -5,7 +5,7 @@ This is a RISC-V simulator which supports piplined execution of instructions. Th
 
 ### Directory Structure
 ```
-phase-2
+phase-3
     |- frontend
         |- public
         |- src

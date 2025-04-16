@@ -10,14 +10,14 @@ class HDU:
         countHazards = 0
         countStalls = 0
         isDataHazard = False
-        to_from = {'to': -1, 'from': -1}
+        to_from = {'to': -1, 'from': -1}  # tracks hazard source and destination stages
 
         # Instruction in decode stage has not been decoded yet 
-        decode_state = pipeline_instructions[-2]
-        instruction = bin(int(decode_state.IR[2:],16))[2:]
-        instruction = (32-len(instruction)) * '0' + instruction
-        decode_opcode = int(instruction[25:32],2)
-        if(decode_opcode in [19, 103, 3]):
+        decode_state = pipeline_instructions[-2] # extracts current instruction in decode stage
+        instruction = bin(int(decode_state.IR[2:],16))[2:] # converts instruction to binary
+        instruction = (32-len(instruction)) * '0' + instruction # pads with leading zeros to make it 32 bits
+        decode_opcode = int(instruction[25:32],2) # extracts opcode from instruction
+        if(decode_opcode in [19, 103, 3]): # for I type only Rs1 is used
             decode_state.RS1 = int(instruction[12:17],2)
             decode_state.RS2 = -1
         else:
@@ -32,6 +32,7 @@ class HDU:
                 countHazards += 1
                 countStalls += 2
                 to_from = {'to': 3, 'from': 2}
+        
         
         # Checking dependency between memory state and decode state
         if memory_state.RD != -1 and memory_state.RD != 0 and not memory_state.stall and not decode_state.stall:

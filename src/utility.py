@@ -1,5 +1,5 @@
 # Utility Functions
-def ImmediateSign(imm, num):
+def ImmediateSign(imm, num):   # sign extension on immediate value to 32 bits 
     if imm & (1 << (num - 1)) == 0:
         return imm
     neg = (1 << num) - 1
@@ -8,18 +8,18 @@ def ImmediateSign(imm, num):
     imm *= -1
     return imm
 
-def nhex(num):
+def nhex(num):  # convert numbers to hexadecimal string with proper handling of negative numbers
 	if num < 0:
 		num += 2**32
 	return hex(num)
 
-def nint(s, base, bits=32):
+def nint(s, base, bits=32): # convert hexadecimal string to integer with proper handling of negative numbers
 	num = int(s, base)
 	if num >= 2**(bits-1):
 		num -= 2**bits
 	return num
 
-def sign_extend(data):
+def sign_extend(data): # sign extend the data to 32 bits
 	if data[2] == '8' or data[2] == '9' or data[2] == 'a' or data[2] == 'A' or data[2] == 'b' or data[2] == 'B' or data[2] == 'c' or data[2] == 'C' or data[2] == 'd' or data[2] == 'D' or data[2] == 'e' or data[2] == 'E' or data[2] == 'f' or data[2] == 'F':
 		data = '0x' + (10 - len(data)) * 'F' + data[2:]
 	else:

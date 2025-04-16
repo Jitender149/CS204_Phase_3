@@ -350,7 +350,7 @@ class processor:
             state.RS1 = int(instruction[12:17],2)
             state.RS2 = int(instruction[7:12],2)
             state.Imm = int(instruction[0:7] + instruction[20:25],2)
-            state.Imm = ImmediateSign(state.Imm,12)
+            state.Imm = ImmediateSign(state.Imm,12)    # utility function to sign extend the immediate
             state.ALU_OP[0] = True
             
             # SB Instruction
@@ -369,9 +369,9 @@ class processor:
                 print("Unknown Error")
                 exit(1)
             
-            state.RA = int(self.registers[state.RS1][2:], 16)
-            state.RB = int(self.registers[state.RS2][2:], 16)
-            state.registerData = state.RB
+            state.RA = int(self.registers[state.RS1][2:], 16) # ALU's first operand
+            state.RB = int(self.registers[state.RS2][2:], 16) # ALU's second operand
+            state.registerData = state.RB # store the second operand in the register data
             self.memory_instructions += 1
         
         # B Format
@@ -384,7 +384,7 @@ class processor:
             
             state.Imm = int(instruction[0] + instruction[24] + instruction[1:7] + instruction[20:24],2)
             state.Imm = ImmediateSign(state.Imm,12)
-            state.Imm *= 2
+            state.Imm *= 2   # as 1 bit shifted already in the instruction
             # BEQ Instruction
             if(func3 == 0x0):
                 state.ALU_OP[12] = True
@@ -443,29 +443,30 @@ class processor:
             state.isbranch=1
             state.generateControlSignals(True,False,2,False,False,False,True,True,0)
             self.control_instructions += 1
-            state.registerData = state.PC + 4
+            state.registerData = state.PC + 4 # return address and this will be written to the destination register
         
         else:
             print("Unknown Instruction")
             exit(1)
         
-        self.riscvCode[state.PC] = code
+        self.riscvCode[state.PC] = code  # store the instruction in the riscvCode dictionary
 
         if self.pipeliningEnabled:
-            enter = False
+            enter = False # initializes a flag to track whether we need to enter a new branch into BTB 
             if state.isbranch == 0:
-                return False, 0, False, 0
+                return False, 0, False, 0  # if the current instruction is not a branch, return early with Fasle: No branch misprediction, 0: No actual PC update, False: No new BTB entry needed, 0: No special handling needed
             else:
-                self.execute(state)
-                self.PC_next = state.PC
-                self.IAG(state)
+                self.execute(state)  # if pipelining is enabled, execute the instruction
+                self.PC_next = state.PC 
+                self.IAG(state)  # calls IAG to calculate next PC, IAG is used to calculate the next PC
                 actual_pc = self.PC_next
 
-                btb = args[0]
-                if btb.find(state.PC) and actual_pc != state.PC_next:
-                    self.branch_misprediction += 1
+                btb = args[0]  # get BTB from the argument list and this is used for branch prediction
+                if btb.find(state.PC) and actual_pc != state.PC_next: # if the branch was in BTB and prediction was wrong then increment the branch misprediction count
+                    self.branch_misprediction += 1 
 
-                if not btb.find(state.PC):
+                if not btb.find(state.PC): # if the branch is not in BTB, we need to add it to the BTB
+                    # copy various control signals to the state
                     state.MucINC_select = self.MuxINC_select
                     # pc_offset
                     state.PC_offset = self.PC_offset
@@ -477,21 +478,21 @@ class processor:
                     self.IAG(state)
                     
                     if(state.isbranch == 1):
-                        btb.enter(True, state.PC, self.PC_next)
+                        btb.enter(True, state.PC, self.PC_next) # whether branch was taken or not, and the current PC and the Target PC
                     else:
                         btb.enter(False, state.PC, self.PC_next)
                     
                     self.reset()
                     self.reset(state)
-                    enter = True
+                    enter = True # set the flag to True as we have entered a new branch into BTB
 
-                else:
+                else: # if the branch is already in BTB
                     if(state.isbranch == 1):
-                        btb.enter(True, state.PC, self.PC_next)
+                        btb.enter(True, state.PC, self.PC_next) # update the BTB entry with the correct branch taken or not
                     else:
                         btb.enter(False, state.PC, self.PC_next)
                 if actual_pc != state.PC_next:
-                    return True, actual_pc, enter, 1
+                    return True, actual_pc, enter, 1 # first value : whether there was a miprediction, Second value: Actual PCif misprediction occured, Third value: Whether new BTB entry was created, Fourth value: 1 if misprediction occured, 0 otherwise
                 else:
                     return False, 0, enter, 3
 
@@ -548,6 +549,7 @@ class processor:
                 elif i==10:
                     state.registerData=InA&InB
                     break
+                # Branch Operations
                 elif i==11:
                     if(InA<InB):
                         state.MuxINC_select=True
@@ -579,31 +581,45 @@ class processor:
                 else:
                     break
 
-
+# / 0 | ADD | ADD, ADDI | Addition |
+# | 1 | SUB | SUB | Subtraction |
+# | 2 | DIV | DIV | Division |
+# | 3 | MUL | MUL | Multiplication |
+# | 4 | REM | REM | Remainder |
+# | 5 | XOR | XOR, XORI | Bitwise XOR |
+# | 6 | SLL | SLL, SLLI | Shift Left Logical |
+# | 7 | SRA | SRA, SRAI | Shift Right Arithmetic |
+# | 8 | SRL | SRL, SRLI | Shift Right Logical |
+# | 9 | OR | OR, ORI | Bitwise OR |
+# | 10 | AND | AND, ANDI | Bitwise AND |
+# | 11 | BLT | BLT | Branch if Less Than |
+# | 12 | BEQ | BEQ | Branch if Equal |
+# | 13 | BNE | BNE | Branch if Not Equal |
+# | 14 | BGE | BGE | Branch if Greater or Equal |
     # Memory Access
     def memoryAccess(self,state):
-        if not self.pipeliningEnabled:
+        if not self.pipeliningEnabled:  # if piplining is disabeled, we call IAG to calculate next PC 
             self.IAG(state)
 
-        if state.stall:
+        if state.stall: # if piplinine is stalled , return immediately without doing anything (USED FOR HANDLING HAZARDS)
             return
         
         # How to update RY?
-        if state.MuxY_select == 0:
+        if state.MuxY_select == 0: # if the MuxY_select is 0, then the RY is the register data
             state.RY = state.registerData
-        elif state.MuxY_select == 1:
+        elif state.MuxY_select == 1: # if the MuxY_select is 1, then the RY is the memory data
             # Whether to access dataMemory?
-            if state.MuxMA_select == False:
+            if state.MuxMA_select == False: # if muxMA_select is false , set MAR to the computed address and this address comes form ALU calculations
                 state.MAR = state.registerData
 
                 # Memory Read (Load Instructions)
                 if state.mem_read:
                     if state.numBytes == 1:
                         tmp = self.dataMemory[state.MAR]
-                        state.RY = nint(tmp,16,8)
+                        state.RY = nint(tmp,16,8) # convert to integer with 8 bit sign extension
                     elif state.numBytes == 2:
-                        tmp = self.dataMemory[state.MAR + 1] + self.dataMemory[state.MAR]
-                        state.RY = nint(tmp,16,16)
+                        tmp = self.dataMemory[state.MAR + 1] + self.dataMemory[state.MAR] # read two bytes from memory and concatenate them, in little endian format
+                        state.RY = nint(tmp,16,16) 
                     elif state.numBytes == 4:
                         tmp = self.dataMemory[state.MAR + 3] + self.dataMemory[state.MAR + 2] + self.dataMemory[state.MAR + 1] + self.dataMemory[state.MAR]
                         state.RY = nint(tmp,16,32)
@@ -621,16 +637,16 @@ class processor:
                         self.dataMemory[state.MAR + 1] = state.MDR[6:8]
                         self.dataMemory[state.MAR + 2] = state.MDR[4:6]
                         self.dataMemory[state.MAR + 3] = state.MDR[2:4]
-        elif state.MuxY_select == 2:
+        elif state.MuxY_select == 2: # if the MuxY_select is 2, then the RY is the PC + 4
             state.RY = state.PC + 4
         
     # Write Back 
     def writeBack(self, state):
-        if not state.stall:
-            if state.registerWrite and state.RD != 0:
-                tmp = nhex(state.RY)
-                tmp = '0x' + ('0' * (10 - len(tmp))) + tmp[2:]
-                self.registers[state.RD] = tmp
+        if not state.stall: # if the pipeline is not stalled, then we can write back the result to the register
+            if state.registerWrite and state.RD != 0: # if the register write is enabled and the destination register is not 0
+                tmp = nhex(state.RY) # convert the result to hexadecimal format
+                tmp = '0x' + ('0' * (10 - len(tmp))) + tmp[2:] # add leading zeros to make it 10 characters long
+                self.registers[state.RD] = tmp # write the result to the destination register
 
 				
         

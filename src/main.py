@@ -134,16 +134,20 @@ if __name__ == '__main__':
 
     else:
         processor.pipeliningEnabled = True
-        pipelineInstructions = [State(0) for x in range(5)]
+        pipelineInstructions = [State(0) for x in range(5)] # create a list of 5 state objects
         for i in range(4):
-            pipelineInstructions[i].stall = True
-        
+            pipelineInstructions[i].stall = True # set the stall flag to true for all except the last one, Why only first 4? because the last one will be the current instruction
+        '''
+        The WB stage is left ready because it's the final stage
+        It needs to be ready to complete any instructions that make it through the pipeline
+        If WB was stalled, completed instructions couldn't write back
+        '''
         while not prog_end:
-            if not forwarding_knob:
+            if not forwarding_knob: # non forwarding mode, ie only stalling for hazards
                 
-                dataHazard = hdu.dataHazardStalling(pipelineInstructions)
-                oldStates = pipelineInstructions
-                pipelineInstructions, controlHazard, controlPC = evaluate(processor, pipelineInstructions)
+                dataHazard = hdu.dataHazardStalling(pipelineInstructions) # check for data hazards
+                oldStates = pipelineInstructions # saving thr current pipline stages
+                pipelineInstructions, controlHazard, controlPC = evaluate(processor, pipelineInstructions) # evaluate the pipeline instructions
                 
                 tmp = []
                 for i in range(5):

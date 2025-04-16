@@ -8,20 +8,60 @@ pc_tmp = []
 dataHazardPairs = []
 controlHazardSignals = []
 
-def evaluate(processor, pipelineInstructions):
+def evaluate(pipelineInstructions):
+    # 1. Write Back Stage (WB)
     processor.writeBack(pipelineInstructions[0])
-    processor.memoryAccess(pipelineInstructions[1])
-    processor.execute(pipelineInstructions[2])
-    controlHazard, controlPC, enter, color = processor.decode(pipelineInstructions[3], btb)
+    # - Writes results back to registers
+    # - Updates register values with computed results
+    # - Final stage of pipeline
 
+    # 2. Memory Access Stage (MEM)
+    processor.memoryAccess(pipelineInstructions[1])
+    # - Handles memory operations (load/store)
+    # - Reads from or writes to data memory
+    # - Fourth stage of pipeline
+
+    # 3. Execute Stage (EX)
+    processor.execute(pipelineInstructions[2])
+    # - Performs ALU operations
+    # - Handles arithmetic/logical operations
+    # - Third stage of pipeline
+
+    # 4. Decode Stage (ID)
+    controlHazard, controlPC, enter, color = processor.decode(pipelineInstructions[3], btb)
+    # - Decodes instruction
+    # - Sets up control signals
+    # - Detects control hazards (branches/jumps)
+    # - Second stage of pipeline
+    # Returns:
+    # - controlHazard: if branch/jump detected
+    # - controlPC: target address for branch/jump
+    # - enter: if entering branch prediction
+    # - color: branch prediction color
+
+    # 5. Control Signal Handling
     if enter:
         controlHazardSignals.append(2)
     elif pipelineInstructions[2].stall and color !=0 and len(controlHazardSignals) > 0 and controlHazardSignals[-1] == 2:
         controlHazardSignals.append(controlHazardSignals[-1])
     else:
         controlHazardSignals.append(color)
+    # - Tracks branch prediction states
+    # - 2: entering branch prediction
+    # - Maintains prediction history
+
+    # 6. Fetch Stage (IF)
     processor.fetch(pipelineInstructions[4],btb)
+    # - Fetches next instruction
+    # - First stage of pipeline
+    # - Uses BTB for branch prediction
+
+    # 7. Return Updated Pipeline State
     return [pipelineInstructions[1],pipelineInstructions[2],pipelineInstructions[3],pipelineInstructions[4]], controlHazard, controlPC
+    # Returns:
+    # - Updated pipeline instructions (excluding WB stage)
+    # - Control hazard status
+    # - Next PC value for branches
         
 
 if __name__ == '__main__':
@@ -147,30 +187,59 @@ if __name__ == '__main__':
                 
                 dataHazard = hdu.dataHazardStalling(pipelineInstructions) # check for data hazards
                 oldStates = pipelineInstructions # saving thr current pipline stages
-                pipelineInstructions, controlHazard, controlPC = evaluate(processor, pipelineInstructions) # evaluate the pipeline instructions
-                
+                pipelineInstructions, controlHazard, controlPC = evaluate(pipelineInstructions) # evaluate the pipeline instructions...core logic of the pipelining 
+                # But why we evaluate in reverse order?
+                # print the results of evaluate
+                print("Data Hazard:", dataHazard[0])
+                print("Number of Data Hazards:", dataHazard[1])
+                print("Number of Stalls:", dataHazard[2])
+                print("To:", dataHazard[3]['to'])
+                print("From:", dataHazard[3]['from'])
                 tmp = []
                 for i in range(5):
                     if oldStates[i].stall:
-                        tmp.append(-1)
+                        tmp.append(-1)  # mark stalled stage with -1
                     else:
-                        tmp.append(oldStates[i].PC)
+                        tmp.append(oldStates[i].PC)  # record the PC of active stages
                 pc_tmp.append(tmp)
-
+                # this way we created a snapshot of pipline state at this clock cycle
+                # -1 indicates stalled stages 
+                # PC value indicated active instructions in each stage
+                
+                # Now we record the hazard information
                 dataHazardPairs.append(dataHazard[3])
+                # stores the hazard detection results
+
+                # Now check branch prediction
                 branch_taken = pipelineInstructions[3].branch_taken
                 branch_pc = pipelineInstructions[3].PC_next
+                # get the branch prediction from decode stage
+                # we need whether the branch was taken or not
+                # and the target address
 
+                # Update PC
                 PC += 4
 
+                # Handle branch prediction
                 if branch_taken and not dataHazard[0]:
                     PC = branch_pc
-                
+                # Handle control hazard                
                 if controlHazard and not dataHazard[0]:
                     stalls_due_to_control_hazard += 1
                     PC = controlPC
                     pipelineInstructions.append(State(PC))
                     pipelineInstructions[-2].stall = True
+                    # if control hazard (branch/jump) detected, increment control hazard stall counter and update the PC o target address
+                    # Add new instruction state and stall the previous instructions
+                    # eg: # Before:
+                    # pipelineInstructions = [IF, ID, EX, MEM, WB]  # 5 stages
+                    # After append:
+                    # pipelineInstructions = [IF, ID, EX, MEM, WB, NEW]  # 6 stages
+                    # NEW is the instruction at branch target
+                    # When a branch is taken, we need to fetch the instruction at the target address
+                    # The new state represents this target instruction
+                    # It will flow through the pipeline stages
+                    # Previous instruction is stalled to prevent incorrect execution
 
                 if dataHazard[0]:
                     number_of_data_hazards += dataHazard[1]
@@ -178,11 +247,14 @@ if __name__ == '__main__':
                     pipelineInstructions = pipelineInstructions[:2] + [State(0)] + oldStates[3:]
                     pipelineInstructions[2].stall = True
                     PC -= 4
-                
+                # if data hazard detected, update hazard and stall counter, insert bubble in pipeline
+                # stall affected stage, and rewind PC to refetch instruction
+
+                # if no control or data hazard, add new instruction at the end of pipeline
                 if not controlHazard and not dataHazard[0]:
                     pipelineInstructions.append(State(PC))
                 
-                pipelineInstructions[-2].PC_next = PC
+                pipelineInstructions[-2].PC_next = PC # set next PC for instruction fetch stage
 
                 prog_end = True
                 for i in range(4):
@@ -190,12 +262,13 @@ if __name__ == '__main__':
                     if not x.stall:
                         prog_end = False
                         break
+                # check if all pipline stages are stalled , if any stage active continue execution
                 clock_cycles+=1
             else:
                 dataHazard, ifStall, stallPos, pipelineInstructions, toFrom = hdu.dataHazardForwarding(pipelineInstructions)
 
                 oldStates = pipelineInstructions
-                pipelineInstructions, controlHazard, controlPC = evaluate(processor, pipelineInstructions)
+                pipelineInstructions, controlHazard, controlPC = evaluate(pipelineInstructions)
 
                 tmp = []
                 for i in range(5):

@@ -5,6 +5,7 @@ class HDU:
         decode_state = pipeline_instructions[-2]
         execute_state = pipeline_instructions[-3]
         memory_state = pipeline_instructions[-4]
+        writeback_state = pipeline_instructions[-5]
 
         # Initializing variables
         countHazards = 0
@@ -24,16 +25,20 @@ class HDU:
             decode_state.RS1 = int(instruction[12:17],2)
             decode_state.RS2 = int(instruction[7:12],2)
             
-        
+        # WB → ID Hazard Check
+        if writeback_state.RD != -1 and writeback_state.RD != 0 and not writeback_state.stall and not decode_state.stall:
+            if writeback_state.RD == decode_state.RS1 or writeback_state.RD == decode_state.RS2:
+                isDataHazard = True
+                countHazards += 1
+                countStalls += 2  # Need to wait for WB to complete
+                to_from = {'to': 3, 'from': 4}  # 4 is WB stage, 3 is ID stage
         # Checking dependency between execute state and decode state
         if execute_state.RD != -1 and execute_state.RD != 0 and not execute_state.stall and not decode_state.stall:
             if execute_state.RD == decode_state.RS1 or execute_state.RD == decode_state.RS2:
                 isDataHazard = True
-                countHazards += 1
-                countStalls += 2
-                to_from = {'to': 3, 'from': 2}
-        
-        
+                countHazards += 0
+                countStalls += 0
+                to_from = {'to': 3, 'from': 2}       
         # Checking dependency between memory state and decode state
         if memory_state.RD != -1 and memory_state.RD != 0 and not memory_state.stall and not decode_state.stall:
             if memory_state.RD == decode_state.RS1 or memory_state.RD == decode_state.RS2:
@@ -52,7 +57,11 @@ class HDU:
         execute_state = pipeline_instructions[-3]
         memory_state = pipeline_instructions[-4]
         writeback_state = pipeline_instructions[-5]
-
+        # print the states
+        print("Decode State:", decode_state)
+        print("Execute State:", execute_state)
+        print("Memory State:", memory_state)
+        print("Writeback State:", writeback_state)
         # Initializing variables   
         countHazards = 0
         isStall = False

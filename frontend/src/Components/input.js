@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import { Link } from "react-router-dom";
 
 function Input() {
     const [pipeliningEnabled, setPipeliningEnabled] = useState(false);
@@ -187,6 +188,16 @@ function Input() {
                         </button>
                     </div>
                 </div>
+            </div>
+
+            {/* Navbar */}
+            <div className="flex justify-center space-x-4 py-4">
+                <Link to='/simulator'>
+                    <button type='button' className="px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-lg transition duration-300 transform hover:scale-105">Simulation</button>
+                </Link>
+                <Link to='/stack'>
+                    <button type='button' className="px-6 py-2 bg-yellow-600 hover:bg-yellow-700 text-white font-bold rounded-lg transition duration-300 transform hover:scale-105">Stack</button>
+                </Link>
             </div>
         </div>
     );

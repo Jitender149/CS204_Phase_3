@@ -6,6 +6,7 @@ import DataHazardScreen from './Components/DataHazardScreen';
 import Simulator from './Components/Simulator.js'
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import Input from './Components/input.js'
+import Stack from './Components/Stack.js'
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
         <Route path='/register' element={<RegisterScreen />} />
         <Route path='/dataHazard' element={<DataHazardScreen />} />
         <Route path='/simulator' element={<Simulator />} />
+        <Route path='/stack' element={<Stack />} />
       </Routes>
       </BrowserRouter>
     </div>

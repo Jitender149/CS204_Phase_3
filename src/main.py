@@ -266,24 +266,40 @@ if __name__ == '__main__':
                 clock_cycles+=1
             else:
                 dataHazard, ifStall, stallPos, pipelineInstructions, toFrom = hdu.dataHazardForwarding(pipelineInstructions)
-
-                oldStates = pipelineInstructions
+                '''
+                Returns:
+                dataHazard: Number of hazards detected
+                ifStall: Whether we need to stall
+                stallPos: Which stage to stall
+                pipelineInstructions: Updated pipeline state
+                toFrom: Forwarding path information
+                '''
+                oldStates = pipelineInstructions  # save the old state,used for stall handling later
                 pipelineInstructions, controlHazard, controlPC = evaluate(pipelineInstructions)
-
+                # now execute one cycle of the pipeline
+                '''
+                Returns:
+                pipelineInstructions: Updated pipeline state
+                controlHazard: Whether control hazard detected
+                controlPC: Target address for control hazard
+                '''
                 tmp = []
                 for i in range(5):
                     if oldStates[i].stall:
-                        tmp.append(-1)
+                        tmp.append(-1)  # for stalled stages, record -1
                     else:
-                        tmp.append(oldStates[i].PC)
+                        tmp.append(oldStates[i].PC)  # record the PC of active stages
                 pc_tmp.append(tmp)
-
+                # this way we created a snapshot of pipline state at this clock cycle
                 dataHazardPairs.append(toFrom)
-
+                # record forwarding path information        
                 branch_taken = pipelineInstructions[3].branch_taken
                 branch_pc = pipelineInstructions[3].PC_next
+                # get the branch prediction from decode stage
+                # we need whether the branch was taken or not
+                # and the target address
 
-                PC += 4
+                PC += 4 # increment PC for next instruction
 
                 if branch_taken and not ifStall:
                     PC = branch_pc
@@ -293,7 +309,11 @@ if __name__ == '__main__':
                     PC = controlPC
                     pipelineInstructions.append(State(PC))
                     pipelineInstructions[-2].stall = True
-
+                '''
+                if a control hazard is detected and we need to stall, we add a new state at the end of the pipeline
+                and stall the previous instruction
+                '''
+                # data hazard handling
                 if ifStall:
                     stalls_due_to_data_hazard += 1
 
@@ -306,18 +326,38 @@ if __name__ == '__main__':
                         pipelineInstructions = pipelineInstructions[:2] + [State(0)] + oldStates[3:]
                         pipelineInstructions[2].stall = True
                         PC -= 4
+                    '''
+                    For stall at position 1:
+                    Inserts bubble after second stage
+                    Stalls third stage
+                    Reverts PC increment
+                    AND
+                    For stall at position 0:
+                    Inserts bubble after first stage
+                    Stalls second stage
+                    Reverts PC increment
+                    '''
                 if(ifStall):
                     number_of_data_hazards += dataHazard
 
                 if not controlHazard and not ifStall:
                     pipelineInstructions.append(State(PC))
+                '''
+                If no hazards:
+                Adds new instruction to pipeline
+                Uses current PC value
+                '''
                 
                 pipelineInstructions[-2].PC_next = PC
 
                 for inst in pipelineInstructions:
                     inst.decode_forwarding_op1 = False
                     inst.decode_forwarding_op2 = False
-                
+                '''
+                Resets forwarding flags for next cycle
+                Ensures clean state for next hazard detection
+                '''
+                # check if all pipline stages are stalled , if any stage active continue execution
                 prog_end = True
                 for i in range(4):
                     x = pipelineInstructions[i] 

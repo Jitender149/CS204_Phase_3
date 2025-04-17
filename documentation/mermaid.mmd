@@ -1,0 +1,32 @@
+graph TD
+    A[Frontend: User Clicks Step] --> B(Frontend: Send /api/step)
+    B --> C{Backend: main.py Receives /api/step}
+    C --> D[Backend: Processor.execute_non_pipelined]
+
+    subgraph Single Instruction Execution
+        D --> D_IF(IF: Fetch Inst @ PC)
+        D_IF --> D_ID(ID: Decode, Read RegFile)
+        D_ID --> D_EX(EX: ALU Op / Addr Calc / Branch Eval)
+        D_EX --> D_MEM(MEM: Memory Access?)
+        D_MEM -- Yes --> D_MEM_RW[Memory Read/Write]
+        D_MEM_RW --> D_WB
+        D_MEM -- No --> D_WB
+        D_WB[WB: Register Write?]
+        D_WB -- Yes --> D_WB_WR[Write RegFile]
+        D_WB_WR --> D_PC
+        D_WB -- No --> D_PC
+        D_PC[PC Update PC+4 or Target]
+    end
+
+    D_PC --> E[Backend: Update State Regs, PC, Mem, Stats]
+    E --> F[Backend main.py Gathers State]
+    F --> G[Backend: Send JSON Response PC, Regs, Mem?, Stats]
+    G --> H[Frontend: Receive Response]
+    H --> I[Frontend: Update UI PC, Regs, Mem, Stats]
+
+    style D_IF fill:#f9f,stroke:#333,stroke-width:2px
+    style D_ID fill:#f9f,stroke:#333,stroke-width:2px
+    style D_EX fill:#f9f,stroke:#333,stroke-width:2px
+    style D_MEM fill:#f9f,stroke:#333,stroke-width:2px
+    style D_WB fill:#f9f,stroke:#333,stroke-width:2px
+    style D_PC fill:#f9f,stroke:#333,stroke-width:2px

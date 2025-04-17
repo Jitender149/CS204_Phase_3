@@ -3,183 +3,199 @@ import './Simulator.css'
 import data from './cycle.json'
 import stats from './stats.json'
 import { Link } from 'react-router-dom'
-const Simulator = () => {
 
+const Simulator = () => {
     const [index, setIndex] = useState(0)
     const [value, setValue] = useState(-1)
+
     useEffect(() => {
-        if (data[index]['fetch'] == -1) {
-            document.querySelector('.div1').classList.add('glow')
-        }
-        else {
-            document.querySelector('.div1').classList.remove('glow')
-        }
+        // Handle stage highlighting
+        const stages = ["fetch", "decode", "execute", "memory", "writeback"]
+        const stageElements = [".div1", ".div2", ".div3", ".div4", ".div5"]
 
-        if (data[index]['decode'] == -1) {
-            document.querySelector('.div2').classList.add('glow')
-        }
-        else {
-            document.querySelector('.div2').classList.remove('glow')
-        }
-
-        if (data[index]['execute'] == -1) {
-            document.querySelector('.div3').classList.add('glow')
-        }
-        else {
-            document.querySelector('.div3').classList.remove('glow')
-        }
-
-        if (data[index]['memory'] == -1) {
-            document.querySelector('.div4').classList.add('glow')
-        }
-        else {
-            document.querySelector('.div4').classList.remove('glow')
-        }
-
-        if (data[index]['writeback'] == -1) {
-            document.querySelector('.div5').classList.add('glow')
-        }
-        else {
-            document.querySelector('.div5').classList.remove('glow')
-        }
-
-
-        if (data[index]["forwarding"] != -1) {
-            if (data[index]['forwarding'] == 0) {
-                console.log(1)
-                setValue(4);
-                let divElement = document.createElement('div');
-                divElement.textContent = data[index]["value"];
-                divElement.className = 'newDiv'
-                let elt = document.querySelector('.newDiv')
-                if(elt !== null) elt.remove()
-                document.querySelector('.div5').appendChild(divElement)
+        stages.forEach((stage, i) => {
+            const element = document.querySelector(stageElements[i])
+            if (element) {
+                if (data[index][stage] === -1) {
+                    element.classList.add("glow")
+                } else {
+                    element.classList.remove("glow")
+                }
             }
-            else if (data[index]['forwarding'] == 1) {
-                setValue(3);
-                console.log(1)
-                let divElement = document.createElement('div');
-                divElement.textContent = data[index]["value"];
-                divElement.className = 'newDiv'
-                let elt = document.querySelector('.newDiv')
-                if(elt !== null) elt.remove()
-                document.querySelector('.div4').appendChild(divElement)
+        })
+
+        // Handle forwarding
+        const handleForwarding = () => {
+            const forwardingValue = data[index]["forwarding"]
+            const targetValue = data[index]["value"]
+            const existingDiv = document.querySelector('.newDiv')
+            
+            if (existingDiv) {
+                existingDiv.remove()
             }
-            else if (data[index]['forwarding'] == 2) {
-                setValue(2);
-                console.log(3)
-                let divElement = document.createElement('div');
-                divElement.textContent = data[index]["value"];
+
+            if (forwardingValue !== -1) {
+                const targetStages = [".div1", ".div2", ".div3", ".div4", ".div5"]
+                const targetIndex = 4 - forwardingValue
+                
+                if (targetIndex >= 0 && targetIndex < targetStages.length) {
+                    setValue(targetIndex)
+                    const divElement = document.createElement('div')
+                    divElement.textContent = targetValue
                 divElement.className = 'newDiv'
-                let elt = document.querySelector('.newDiv')
-                if(elt !== null) elt.remove()
-                document.querySelector('.div3').appendChild(divElement)
-            }
-            else if (data[index]['forwarding'] == 3) {
-                setValue(1);
-                console.log(4)
-                let divElement = document.createElement('div');
-                divElement.textContent = data[index]["value"];
-                divElement.className = 'newDiv'
-                let elt = document.querySelector('.newDiv')
-                if(elt !== null) elt.remove()
-                document.querySelector('.div2').appendChild(divElement)
-            }
-            else if (data[index]['forwarding'] == 4) {
-                setValue(0)
-                console.log(5)
-                let divElement = document.createElement('div');
-                divElement.textContent = data[index]["value"];
-                divElement.className = 'newDiv'
-                let elt = document.querySelector('.newDiv')
-                if(elt !== null) elt.remove()
-                document.querySelector('.div1').appendChild(divElement)
-            }
-            else {
-                console.log("HELLO")
+                    const targetElement = document.querySelector(targetStages[targetIndex])
+                    if (targetElement) {
+                        targetElement.appendChild(divElement)
+                    }
+                }
+            } else {
                 setValue(-1)
-                let elt = document.querySelector('.newDiv')
-                if(elt !== null) elt.remove()
             }
         }
-        else{
-            console.log("PRINT")
-            let elt = document.querySelector('.newDiv')
-            if(elt !== null) elt.remove()
-        }
 
+        handleForwarding()
     }, [index])
 
-    function stepHandler() {
-        if (index < data.length) setIndex(index + 1)
+    const stepHandler = () => {
+        if (index < data.length - 1) setIndex(index + 1)
     }
 
-    function prevHandler() {
+    const prevHandler = () => {
         if (index >= 1) setIndex(index - 1)
     }
 
-
     return (
-        <>
-            <div className="complete" style={{height:'100vh'}}>
-                <div className='box'>
-                    <Link to='/register'>
-                        <button type="button" class="btn btn-outline-secondary" style={{ paddingLeft: '30px', paddingRight: '30px' }}>Back</button>
+        <div className="complete" style={{ height: '100vh' }}>
+            {/* Header section */}
+            <div className="box">
+                <Link to="/register">
+                    <button 
+                        type="button" 
+                        className="btn btn-outline-secondary back-button"
+                        style={{ paddingLeft: '30px', paddingRight: '30px' }}
+                    >
+                        Back
+                    </button>
                     </Link>
-                    <div className='topbar'>
-                        Simulator
+                <div className="topbar">CPU Pipeline Simulator</div>
+            </div>
+
+            {/* Control buttons */}
+            <div className="runButtons">
+                <button
+                    type="button"
+                    className="btn btn-outline-danger step-button"
+                    style={{ marginRight: '40px', paddingLeft: '50px', paddingRight: '50px' }}
+                    onClick={stepHandler}
+                >
+                    Step
+                </button>
+                <button
+                    type="button"
+                    className="btn btn-outline-danger prev-button"
+                    style={{ paddingLeft: '50px', paddingRight: '50px' }}
+                    onClick={prevHandler}
+                >
+                    Prev
+                </button>
+            </div>
+
+            {/* Pipeline stages */}
+            <div className="pipeline-container">
+                {/* IF Stage */}
+                <div className="stage-container">
+                    <div className="inner div1">
+                        <div className="stage-label">IF</div>
+                        <div className="data1" style={{ width: '100%' }}>
+                            <b>{data[index]['fetch']}</b>
+                        </div>
                     </div>
-                </div>
-                <div className='runButtons'>
-                    <button type="button" class="btn btn-outline-danger" style={{ marginRight: '40px', paddingLeft: '50px', paddingRight: '50px' }} onClick={stepHandler}>Step</button>
-                    <button type="button" class="btn btn-outline-danger" style={{ paddingLeft: '50px', paddingRight: '50px' }} onClick={prevHandler}>Prev</button>
-                </div>
-                <div className='outer'>
-                    <div className='inner div1'>
-                        <div className='data1'  style={{ width: '100%' }}><b>{data[index]['fetch']}</b></div>
-                        {/* {value == 0 ? <div style={{width:'100%'}}><b>{data[index]['value']}</b></div> : <div></div>} */}
-                    </div>
-                    <div className='inner div2'>
-                        <div className='data2' style={{ width: '100%' }}><b>{data[index]['decode']}</b></div>
-                        {/* {value == 1 ? <div style={{ width: '100%' }}><b>{data[index]['value']}</b></div> : <div></div>} */}
-                    </div>
-                    <div className='inner div3'>
-                        <div className='data3' style={{ width: '100%' }}><b>{data[index]['execute']}</b></div>
-                        {/* {value == 2 ? <div style={{ width: '100%' }}><b>{data[index]['value']}</b></div> : <div></div>} */}
-                    </div>
-                    <div className='inner div4'>
-                        <div className='data4' style={{ width: '100%' }}><b>{data[index]['memory']}</b></div>
-                        {/* {value == 3 ? <div style={{ width: '100%' }}><b>{data[index]['value']}</b></div> : <div></div>} */}
-                    </div>
-                    <div className='inner div5'>
-                        <div className='data5' style={{ width: '100%' }}><b>{data[index]['writeback']}</b></div>
-                        {/* {value == 4 ? <div style={{ width: '100%' }}><b>{data[index]['value']}</b></div> : <div></div>} */}
+                    <div className="buffer-register">
+                        <div className="buffer-label">IF/ID</div>
+                        <div className="arrow-right" />
                     </div>
                 </div>
 
-                <div className='statistics'>
-                    {/* {
-                    stats.map((value) => {
-                        return <div className='divInner'><b>{value["stats"]}</b>: {value["value"]}</div>
-                    })
-                } */}
-                    <div className='divInner'><b>{stats[0]['stats']}</b>: {stats[0]['value']}</div>
-                    <div className='divInner'><b>{stats[1]['stats']}</b>: {stats[1]['value']}</div>
-                    <div className='divInner'><b>{stats[2]['stats']}</b>: {stats[2]['value']}</div>
-                    <div className='divInner'><b>{stats[3]['stats']}</b>: {stats[3]['value']}</div>
-                    <div className='divInner'><b>{stats[4]['stats']}</b>: {stats[4]['value']}</div>
-                    <div className='divInner'><b>{stats[5]['stats']}</b>: {stats[5]['value']}</div>
+                {/* ID Stage */}
+                <div className="stage-container">
+                    <div className="inner div2">
+                        <div className="stage-label">ID</div>
+                        <div className="data2" style={{ width: '100%' }}>
+                            <b>{data[index]['decode']}</b>
+                        </div>
                 </div>
-                <div className="statistics">
-                    <div className='divInner'><b>{stats[6]['stats']}</b>: {stats[6]['value']}</div>
-                    <div className='divInner'><b>{stats[7]['stats']}</b>: {stats[7]['value']}</div>
-                    <div className='divInner'><b>{stats[8]['stats']}</b>: {stats[8]['value']}</div>
-                    <div className='divInner'><b>{stats[9]['stats']}</b>: {stats[9]['value']}</div>
-                    <div className='divInner'><b>{stats[10]['stats']}</b>: {stats[10]['value']}</div>
-                    <div className='divInner'><b>{stats[11]['stats']}</b>: {stats[11]['value']}</div>
+                    <div className="buffer-register">
+                        <div className="buffer-label">ID/EX</div>
+                        <div className="arrow-right" />
+                    </div>
+                </div>
+
+                {/* EX Stage */}
+                <div className="stage-container">
+                    <div className="inner div3">
+                        <div className="stage-label">EX</div>
+                        <div className="data3" style={{ width: '100%' }}>
+                            <b>{data[index]['execute']}</b>
+                        </div>
+                    </div>
+                    <div className="buffer-register">
+                        <div className="buffer-label">EX/MEM</div>
+                        <div className="arrow-right" />
+                    </div>
+                </div>
+
+                {/* MEM Stage */}
+                <div className="stage-container">
+                    <div className="inner div4">
+                        <div className="stage-label">MEM</div>
+                        <div className="data4" style={{ width: '100%' }}>
+                            <b>{data[index]['memory']}</b>
+                        </div>
+                    </div>
+                    <div className="buffer-register">
+                        <div className="buffer-label">MEM/WB</div>
+                        <div className="arrow-right" />
+                    </div>
+                </div>
+
+                {/* WB Stage */}
+                <div className="stage-container">
+                    <div className="inner div5">
+                        <div className="stage-label">WB</div>
+                        <div className="data5" style={{ width: '100%' }}>
+                            <b>{data[index]['writeback']}</b>
+                        </div>
+                </div>
                 </div>
             </div>
-        </>
+
+            {/* Statistics section */}
+            <div className="stats-header">Performance Statistics</div>
+            
+            {/* First row of statistics */}
+            <div className="statistics">
+                {stats.slice(0, 6).map((stat, i) => (
+                    <div className="stat-card" key={i}>
+                        <div className="stat-name">
+                            <b>{stat.stats}</b>
+                        </div>
+                        <div className="stat-value">{stat.value}</div>
+                    </div>
+                ))}
+            </div>
+            
+            {/* Second row of statistics */}
+            <div className="statistics">
+                {stats.slice(6, 12).map((stat, i) => (
+                    <div className="stat-card" key={i + 6}>
+                        <div className="stat-name">
+                            <b>{stat.stats}</b>
+                        </div>
+                        <div className="stat-value">{stat.value}</div>
+                    </div>
+                ))}
+            </div>
+        </div>
     )
 }
 

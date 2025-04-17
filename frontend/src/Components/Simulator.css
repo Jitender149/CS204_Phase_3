@@ -1,107 +1,321 @@
+/* Base styles */
 .complete {
-    background-color: #3d285c;
-    /* position: fixed; */
+  min-height: 100vh; /* Ensure it takes full height */
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  color: #e6e6e6;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  display: flex; /* Use flexbox for layout */
+  flex-direction: column; /* Stack children vertically */
+  align-items: center; /* Center children horizontally */
+  padding: 2rem; /* Add padding around the content */
+  box-sizing: border-box;
+  overflow-x: hidden; /* Prevent horizontal scroll on the main page */
 }
+
+/* Header styles */
 .box {
   display: flex;
-  /* align-items: center; */
-  padding-top: 20px;
-  box-sizing: border-box;
+  align-items: center;
+  justify-content: center; /* Center title */
+  width: 100%;
+  max-width: 1200px; /* Max width for content */
+  margin-bottom: 2rem; /* Space below header */
+  position: relative; /* For potential absolute positioning inside */
 }
+
+.back-button {
+  position: absolute; /* Position back button independently */
+  left: 20px; /* Adjust as needed */
+  background-color: transparent !important;
+  color: #e6e6e6 !important;
+  border: 1px solid #e6e6e6 !important;
+  transition: all 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
 .topbar {
-  /* border: 2px solid red; */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 40%;
-    font-weight: 500;
-    font-size: xx-large;
-    color: white;
+  /* Removed margin-left: 40% */
+  font-weight: 600; /* Make it bolder */
+  font-size: 2rem; /* Increase size slightly */
+  color: #0ea5e9;
+  text-align: center; /* Ensure text is centered */
 }
 
+/* Control buttons */
 .runButtons {
-    margin-top: 20px;
+  /* margin-top: 0;  <-- Keep this commented or remove */
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem; /* Ensure space below buttons */
+  width: 100%; /* Ensure it takes full width for alignment */
+  flex-shrink: 0; /* Prevent shrinking */
 }
 
-.outer {
-    margin-left: 10%;
-    margin-right: 10%;
+.step-button,
+.prev-button {
+  padding: 0.75rem 2rem; /* Standardize padding */
+  border-radius: 4px;
+  background-color: #0ea5e9 !important;
+  color: #fff !important;
+  border: none !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.step-button:hover,
+.prev-button:hover {
+  transform: translateY(-2px);
+}
+
+.prev-button {
+  background-color: #475569 !important;
+}
+
+.prev-button:hover {
+  background-color: #334155 !important;
+}
+
+/* Pipeline container */
+.pipeline-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+  padding: 1rem;
+  overflow-x: auto;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 220px; /* Add a minimum height to ensure it takes space */
+  flex-shrink: 0; /* Ensure it doesn't shrink */
+}
+
+.stage-container {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0; /* Prevent stages from shrinking */
+}
+
+/* Stage styling */
+.inner {
+  height: 180px;
+  width: 180px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 0 10px;
+  overflow: hidden;
+  flex-shrink: 0; /* Prevent individual stages from shrinking */
+}
+
+.stage-label {
+  background-color: #0ea5e9;
+  color: white;
+  text-align: center;
+  padding: 8px 0;
+  font-weight: bold;
+  border-radius: 10px 10px 0 0;
+  font-size: 1.2rem;
+  flex-shrink: 0; /* Prevent label from shrinking */
+}
+
+/* Target the data container (assuming it's a div within .inner after .stage-label) */
+.inner > div:not(.stage-label):not(.newDiv) {
+    flex-grow: 1; /* Allow data area to grow */
     display: flex;
-    margin-top: 50px;
-  /*   flex-direction: row; */
-  /*   justify-content: center; */
-  /*   align-items: center; */
+    align-items: center; /* Center content vertically */
+    justify-content: center; /* Center content horizontally */
+    padding: 0.5rem; /* Add padding */
+    text-align: center;
+    overflow-wrap: break-word; /* Wrap long words */
+    word-break: break-word; /* Break words if needed */
+}
+
+/* Buffer registers */
+.buffer-register {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 15px; /* Increase margin slightly */
+  flex-shrink: 0; /* Prevent shrinking */
+}
+
+.buffer-label {
+  background-color: #475569;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  margin-bottom: 5px;
+  white-space: nowrap; /* Prevent label text from wrapping */
+}
+
+.arrow-right {
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 16px solid #0ea5e9;
+}
+
+/* Statistics section */
+.stats-header {
+  text-align: center;
+  margin: 2rem 0 1rem 0; /* Adjusted margin */
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #0ea5e9;
+}
+
+.statistics {
+  display: grid; /* Use grid for stats */
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Responsive grid */
+  gap: 1rem;
+  width: 100%;
+  max-width: 1200px; /* Max width */
+  padding: 0 1rem; /* Padding for the grid */
+  box-sizing: border-box;
+  margin-bottom: 2rem; /* Space at the bottom */
+}
+
+.stat-card {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  min-height: 100px;
+  color: #e6e6e6;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center items horizontally */
+  justify-content: center; /* Center items vertically */
+  text-align: center; /* Center text */
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.stat-name {
+  margin-bottom: 0.5rem; /* Adjusted spacing */
+  color: #94a3b8;
+  text-align: center;
+  font-size: 0.9rem; /* Slightly smaller name */
+}
+
+.stat-value {
+  font-size: 1.3rem; /* Adjusted size */
+  font-weight: 600;
+  word-break: break-all; /* Break long values if needed */
+}
+
+/* Glow effect for active stages */
+.glow {
+  animation: glowing-red 1.5s infinite alternate; /* Use alternate for smoother pulse */
+  /* You could add other base styles for the glow state here if needed,
+     like border color, but the animation handles background/shadow */
+}
+
+/* Update keyframes for a red glow */
+@keyframes glowing-red { 
+  from {
+    background-color: rgba(255, 0, 0, 0.15); /* Lighter red background */
+    box-shadow: 0 0 5px rgba(255, 0, 0, 0.6); /* Softer red shadow */
+    /* border: 1px solid rgba(255, 0, 0, 0.4); /* Optional: Red border */
+  }
+  to {
+    background-color: rgba(255, 0, 0, 0.3); /* Darker red background */
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.9); /* Stronger red shadow */
+    /* border: 1px solid rgba(255, 0, 0, 0.8); /* Optional: Stronger red border */
+  }
+}
+
+/* Keep the original glowing animation if needed elsewhere, or remove if unused */
+/* @keyframes glowing { ... } */
+
+/* Ensure text inside glowing box is visible */
+.inner.glow > div:not(.stage-label):not(.newDiv) b {
+    color: #ffdddd; /* Light red/pinkish color for text for contrast */
+    /* or color: white; */
+}
+
+/* Forwarding value styling */
+.newDiv {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: #0ea5e9;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  z-index: 10; /* Ensure it's above other content */
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .pipeline-container {
+    /* Keep overflow-x: auto; */
+    justify-content: flex-start; /* Align stages to start for scrolling */
+  }
+}
+
+@media (max-width: 768px) {
+    .complete {
+        padding: 1rem; /* Reduce padding on smaller screens */
+    }
+    .box {
+        padding: 0 1rem; /* Adjust header padding */
+    }
+    .back-button {
+        left: 10px; /* Adjust back button position */
+    }
+  .topbar {
+    font-size: 1.5rem;
+    /* margin-left: 0; Let justify-content handle centering */
   }
 
   .inner {
-    /*   margin: 100px 100px; */
-      margin-right: 20px;
-      margin-left: 20px;
-        height: 200px;
-        width: 200px;
-        background: #DCCAE9;
-    /*   background: red; */
-        border-radius: 10px;
-        display: flex;
-        flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    /*     border: 10px; */
-    /*     border: 1px solid black; */
-      box-shadow: -10px 0px 10px 1px #181717;
-    /*      box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px; */
-    }
+    width: 150px;
+    height: 150px;
+  }
+  .pipeline-container {
+      padding: 0.5rem; /* Reduce padding */
+  }
+  .stage-container {
+      margin: 0 5px; /* Reduce margin */
+  }
+  .buffer-register {
+      margin: 0 8px; /* Reduce margin */
+  }
+  .statistics {
+      padding: 0 0.5rem; /* Reduce padding */
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* Adjust grid */
+  }
+}
 
-    .glow {
-        -webkit-animation: glowing 1500ms infinite;
-      -moz-animation: glowing 1500ms infinite;
-      -o-animation: glowing 1500ms infinite;
-      animation: glowing 1500ms infinite;
-    }
-
-    .statistics {
-      margin-top: 40px;
-      display: flex;
-      justify-content: space-evenly;
-      flex-direction: row;
-      flex-wrap: wrap;
-    }
-
-    .divInner {
-      background-color: #DCCAE9;
-      margin-right: 20px;
-      margin-right: 20px;
-      width: 200px;
-      height: 100px;
-      margin-top: 20px;
-      color: black;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 6px;
-      box-shadow: -10px 0px 10px 1px #181717;
-    }
-
-    @-webkit-keyframes glowing {
-      0% { background-color: #B20000; -webkit-box-shadow: 0 0 3px #B20000; }
-      50% { background-color: #FF0000; -webkit-box-shadow: 0 0 40px #FF0000; }
-      100% { background-color: #B20000; -webkit-box-shadow: 0 0 3px #B20000; }
-    }
-    
-    @-moz-keyframes glowing {
-      0% { background-color: #B20000; -moz-box-shadow: 0 0 3px #B20000; }
-      50% { background-color: #FF0000; -moz-box-shadow: 0 0 40px #FF0000; }
-      100% { background-color: #B20000; -moz-box-shadow: 0 0 3px #B20000; }
-    }
-    
-    @-o-keyframes glowing {
-      0% { background-color: #B20000; box-shadow: 0 0 3px #B20000; }
-      50% { background-color: #FF0000; box-shadow: 0 0 40px #FF0000; }
-      100% { background-color: #B20000; box-shadow: 0 0 3px #B20000; }
-    }
-    
-    @keyframes glowing {
-      0% { background-color: #B20000; box-shadow: 0 0 3px #B20000; }
-      50% { background-color: #FF0000; box-shadow: 0 0 40px #FF0000; }
-      100% { background-color: #B20000; box-shadow: 0 0 3px #B20000; }
-    }
+.simulator-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}

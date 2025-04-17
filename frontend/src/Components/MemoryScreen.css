@@ -8,3 +8,72 @@
     justify-content: center;
   }
 
+.memory-data-container {
+  background-color: #1a1a1a;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  margin: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.memory-data-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.memory-data-filters {
+  display: flex;
+  gap: 1rem;
+}
+
+.memory-data-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  max-height: 600px;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+.memory-data-item {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.memory-data-address,
+.memory-data-value {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.memory-data-item:hover {
+  transform: translateY(-2px);
+  transition: transform 0.2s ease;
+}
+
+/* Scrollbar styling */
+.memory-data-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.memory-data-content::-webkit-scrollbar-track {
+  background: #2d2d2d;
+  border-radius: 4px;
+}
+
+.memory-data-content::-webkit-scrollbar-thumb {
+  background: #4a4a4a;
+  border-radius: 4px;
+}
+
+.memory-data-content::-webkit-scrollbar-thumb:hover {
+  background: #5a5a5a;
+}
+

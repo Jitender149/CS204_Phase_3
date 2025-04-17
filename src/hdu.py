@@ -36,8 +36,8 @@ class HDU:
         if execute_state.RD != -1 and execute_state.RD != 0 and not execute_state.stall and not decode_state.stall:
             if execute_state.RD == decode_state.RS1 or execute_state.RD == decode_state.RS2:
                 isDataHazard = True
-                countHazards += 0
-                countStalls += 0
+                countHazards += 1
+                countStalls += 1
                 to_from = {'to': 3, 'from': 2}       
         # Checking dependency between memory state and decode state
         if memory_state.RD != -1 and memory_state.RD != 0 and not memory_state.stall and not decode_state.stall:

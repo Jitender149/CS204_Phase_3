@@ -1,33 +1,33 @@
 graph TD
     A[Frontend: User Clicks Step] --> B(Frontend: Send /api/step);
     B --> C[Backend: main.py Receives /api/step];
-    C --> D[Backend: Processor.run_one_cycle_pipelined()];
+    C --> D[Backend: Processor.run_one_cycle_pipelined];
     subgraph One Clock Cycle Simulation
         D --> E[Hazard Check: HDU.detect_hazards_stall_only];
         E --> F[Stall Detected?];
         F -- Yes --> G[Generate Stall Signals];
         F -- No --> H[No Stall Signals];
         G --> I[Concurrent Stage Execution w/ Stalls];
-        H --> I;
-        subgraph Stages (Conceptual Concurrency)
+        H --> I[next stage];
+        subgraph Stages [Conceptual Concurrency]
             I --> WB(WB: Reg Write?);
             I --> MEM(MEM: Mem Access?);
             I --> EX(EX: ALU Op / Bubble?);
             I --> ID(ID: Decode / Stall?);
             I --> IF(IF: Fetch / Stall?);
         end
-        WB --> J[Update Pipeline Latches (Pass/Hold/NOP)];
+        WB --> J[Update Pipeline Latches Pass/Hold/NOP];
         MEM --> J;
         EX --> J;
         ID --> J;
         IF --> J;
-        J --> K[PC Update (Based on Stalls/Branch)];
+        J --> K[PC Update Based on Stalls/Branch];
     end
-    K --> L[Backend: Update State (Regs, PC, Mem, Latches, Stats, Stalls)];
+    K --> L[Backend: Update State Regs, PC, Mem, Latches, Stats, Stalls];
     L --> M[Backend: main.py Gathers State];
-    M --> N[Backend: Send JSON Response (Pipeline State, Stalls, Stats)];
-    N --> O(Frontend: Receive Response);
-    O --> P[Frontend: Update UI (Pipeline Diagram w/ Stalls/Glow, Regs, Mem, Stats)];
+    M --> N[Backend: Send JSON Response Pipeline State, Stalls, Stats];
+    N --> O[Frontend: Receive Response];
+    O --> P[Frontend: Update UI Pipeline Diagram w/ Stalls/Glow, Regs, Mem, Stats];
 
     style E fill:#ccf,stroke:#333,stroke-width:2px
     style I fill:#f9f,stroke:#333,stroke-width:2px

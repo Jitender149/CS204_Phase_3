@@ -120,5 +120,79 @@ with open(filename) as fh:
     json.dump(array,jsonFile,indent=4)
     jsonFile.close()
     
+# Convert stack_states.txt to stack_states.json
+filename = 'stack_states.txt'
+with open(filename) as fh:
+    array = []
+    current_cycle = None
+    current_stack = []
+    
+    for line in fh:
+        line = line.strip()
+        if line.startswith('=== Cycle'):
+            # Save previous cycle if exists
+            if current_cycle is not None:
+                array.append({
+                    'cycle': current_cycle,
+                    'stack': current_stack.copy()
+                })
+            
+            # Start new cycle
+            try:
+                current_cycle = int(line.split(' ')[2])
+            except (IndexError, ValueError):
+                print(f"Warning: Could not parse cycle number from line: {line}")
+                continue
+            current_stack = []
+        elif line.startswith('Stack Level'):
+            try:
+                # Parse stack entry
+                parts = line.split(':')
+                if len(parts) < 2:
+                    print(f"Warning: Invalid stack level format: {line}")
+                    continue
+                    
+                # Get instruction type
+                next_line = next(fh).strip()
+                if not next_line.startswith('Instruction Type:'):
+                    print(f"Warning: Expected instruction type, got: {next_line}")
+                    continue
+                instruction_type = next_line.split(': ')[1]
+                
+                # Get return address
+                next_line = next(fh).strip()
+                if not next_line.startswith('Return Address:'):
+                    print(f"Warning: Expected return address, got: {next_line}")
+                    continue
+                return_address = int(next_line.split(': ')[1], 16)
+                
+                # Get PC
+                next_line = next(fh).strip()
+                if not next_line.startswith('PC:'):
+                    print(f"Warning: Expected PC, got: {next_line}")
+                    continue
+                pc = int(next_line.split(': ')[1], 16)
+                
+                current_stack.append({
+                    'instruction_type': instruction_type,
+                    'return_address': return_address,
+                    'pc': pc
+                })
+            except (StopIteration, ValueError, IndexError) as e:
+                print(f"Warning: Error parsing stack entry: {str(e)}")
+                continue
+    
+    # Save last cycle
+    if current_cycle is not None:
+        array.append({
+            'cycle': current_cycle,
+            'stack': current_stack.copy()
+        })
+    
+    filepath = '../frontend/src/components/stack_states.json'
+    jsonFile = open(filepath, 'w')
+    json.dump(array, jsonFile, indent=4)
+    jsonFile.close()
+    
         
         

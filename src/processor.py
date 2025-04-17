@@ -1,6 +1,8 @@
 from collections import defaultdict
 from btb import *
 from utility import *
+import os
+
 class processor:
     def __init__(self, file1):
         self.dataMemory = defaultdict(lambda: '00') # initialising data memory
@@ -36,6 +38,9 @@ class processor:
         # Control : jalr, jal, beq, bne, blt, bge, bltu, bgeu...so on
         self.allStall=False # control global pipline stalling, when true, all stages are stalled, when false, pipeline is free to run
         self.riscvCode = defaultdict(lambda: -1) # dictionary to store the riscv code
+        # Stack tracking
+        self.call_stack = []  # List to store return addresses
+        self.stack_states = []  # List to store stack state at each cycle
 
     def reset(self, *args):
         if len(args) > 0:
@@ -329,6 +334,9 @@ class processor:
             
             # JALR
             elif(opcode == '1100111'):
+                print(f"\nExecuting JALR instruction at PC: 0x{state.PC:08x}")
+                print(f"Target address: 0x{state.RA + state.Imm:08x}")
+                print(f"Return address: 0x{state.PC + 4:08x}")
                 state.generateControlSignals(True,False,2,False,False,False,False,True,4)
                 # JALR Instruction
                 if(func3 == 0x0):
@@ -339,11 +347,13 @@ class processor:
                     exit(1)
                 state.isbranch=1
                 state.RA = nint(self.registers[state.RS1][2:], 16)  # load RS1 as the base address
-                state.return_address = state.RA # return address is the base address    
-                self.return_address = state.RA # return address is the base address
-                self.MuxPC_select = True # select the base address as the PC source
+                state.return_address = state.RA + state.Imm # return address is the base address + immediate
+                self.return_address = state.RA + state.Imm # return address is the base address + immediate
+                self.MuxPC_select = False # select the return address as the PC source
                 self.control_instructions += 1 # ofc this is a control instruction
                 state.registerData = state.PC + 4
+                # Push return address to stack
+                self.push_stack(state.PC + 4, 'JALR', state.PC)
         
         # S Format
         elif(opcode == '0100011'):
@@ -376,6 +386,7 @@ class processor:
         
         # B Format
         elif(opcode == '1100011'):
+            print(f"\nExecuting branch instruction at PC: 0x{state.PC:08x}")
             state.RS1 = int(instruction[12:17], 2)
             state.RS2 = int(instruction[7:12], 2)
             
@@ -387,20 +398,40 @@ class processor:
             state.Imm *= 2   # as 1 bit shifted already in the instruction
             # BEQ Instruction
             if(func3 == 0x0):
+                print(f"BEQ instruction: x{state.RS1} (0x{state.RA:08x}) == x{state.RS2} (0x{state.RB:08x})")
+                print(f"Branch target: 0x{state.PC + state.Imm:08x}")
                 state.ALU_OP[12] = True
                 code = 'BEQ x' + str(state.RS1) + ', x' + str(state.RS2) + ', ' + str(state.Imm)
+                # Push return address to stack if branch is taken
+                if state.RA == state.RB:
+                    self.push_stack(state.PC + 4, 'BEQ', state.PC)
             # BNE Instruction
             elif(func3 == 0x1):
+                print(f"BNE instruction: x{state.RS1} (0x{state.RA:08x}) != x{state.RS2} (0x{state.RB:08x})")
+                print(f"Branch target: 0x{state.PC + state.Imm:08x}")
                 state.ALU_OP[13] = True
                 code = 'BNE x' + str(state.RS1) + ', x' + str(state.RS2) + ', ' + str(state.Imm)
+                # Push return address to stack if branch is taken
+                if state.RA != state.RB:
+                    self.push_stack(state.PC + 4, 'BNE', state.PC)
             # BLT Instruction
             elif(func3 == 0x4):
+                print(f"BLT instruction: x{state.RS1} (0x{state.RA:08x}) < x{state.RS2} (0x{state.RB:08x})")
+                print(f"Branch target: 0x{state.PC + state.Imm:08x}")
                 state.ALU_OP[11] = True
                 code = 'BLT x' + str(state.RS1) + ', x' + str(state.RS2) + ', ' + str(state.Imm)
+                # Push return address to stack if branch is taken
+                if state.RA < state.RB:
+                    self.push_stack(state.PC + 4, 'BLT', state.PC)
             # BGE Instruction
             elif(func3 == 0x5):
+                print(f"BGE instruction: x{state.RS1} (0x{state.RA:08x}) >= x{state.RS2} (0x{state.RB:08x})")
+                print(f"Branch target: 0x{state.PC + state.Imm:08x}")
                 state.ALU_OP[14] = True
                 code = 'BGE x' + str(state.RS1) + ', x' + str(state.RS2) + ', ' + str(state.Imm)
+                # Push return address to stack if branch is taken
+                if state.RA >= state.RB:
+                    self.push_stack(state.PC + 4, 'BGE', state.PC)
             else:
                 print("Unknown Error")
                 exit(1)
@@ -431,11 +462,14 @@ class processor:
         
         # J Format
         elif(opcode == '1101111'):
+            print(f"\nExecuting JAL instruction at PC: 0x{state.PC:08x}")
             # JAL Instruction
             state.RD = int(instruction[20:25],2)
             state.Imm = int(instruction[0] + instruction[12:20] + instruction[11] + instruction[1:11],2)
             state.Imm =  ImmediateSign(state.Imm,20)
             state.Imm *= 2
+            print(f"Target address: 0x{state.PC + state.Imm:08x}")
+            print(f"Return address: 0x{state.PC + 4:08x}")
             state.ALU_OP[12] = True
             code = 'JAL x' + str(state.RD) + ', ' + str(state.Imm)
             state.RA = 0
@@ -444,6 +478,8 @@ class processor:
             state.generateControlSignals(True,False,2,False,False,False,True,True,0)
             self.control_instructions += 1
             state.registerData = state.PC + 4 # return address and this will be written to the destination register
+            # Push return address to stack - JAL always jumps
+            self.push_stack(state.PC + 4, 'JAL', state.PC)
         
         else:
             print("Unknown Instruction")
@@ -550,28 +586,28 @@ class processor:
                     state.registerData=InA&InB
                     break
                 # Branch Operations
-                elif i==11:
+                elif i==11:  # BLT
                     if(InA<InB):
                         state.MuxINC_select=True
                         state.PC_offset = state.Imm
                     self.PC_offset = state.Imm
                     self.MuxINC_select = True
                     break
-                elif i==12:
+                elif i==12:  # BEQ
                     if(InA==InB):
                         state.MuxINC_select=True
                         state.PC_offset = state.Imm
                     self.PC_offset = state.Imm
                     self.MuxINC_select = True
                     break
-                elif i==13:
+                elif i==13:  # BNE
                     if(InA!=InB):
                         state.MuxINC_select=True
                         state.PC_offset = state.Imm
                     self.PC_offset = state.Imm
                     self.MuxINC_select = True
                     break
-                elif i==14:
+                elif i==14:  # BGE
                     if(InA>=InB):
                         state.MuxINC_select=True
                         state.PC_offset = state.Imm
@@ -581,21 +617,6 @@ class processor:
                 else:
                     break
 
-# / 0 | ADD | ADD, ADDI | Addition |
-# | 1 | SUB | SUB | Subtraction |
-# | 2 | DIV | DIV | Division |
-# | 3 | MUL | MUL | Multiplication |
-# | 4 | REM | REM | Remainder |
-# | 5 | XOR | XOR, XORI | Bitwise XOR |
-# | 6 | SLL | SLL, SLLI | Shift Left Logical |
-# | 7 | SRA | SRA, SRAI | Shift Right Arithmetic |
-# | 8 | SRL | SRL, SRLI | Shift Right Logical |
-# | 9 | OR | OR, ORI | Bitwise OR |
-# | 10 | AND | AND, ANDI | Bitwise AND |
-# | 11 | BLT | BLT | Branch if Less Than |
-# | 12 | BEQ | BEQ | Branch if Equal |
-# | 13 | BNE | BNE | Branch if Not Equal |
-# | 14 | BGE | BGE | Branch if Greater or Equal |
     # Memory Access
     def memoryAccess(self,state):
         if not self.pipeliningEnabled:  # if piplining is disabeled, we call IAG to calculate next PC 
@@ -648,7 +669,172 @@ class processor:
                 tmp = '0x' + ('0' * (10 - len(tmp))) + tmp[2:] # add leading zeros to make it 10 characters long
                 self.registers[state.RD] = tmp # write the result to the destination register
 
-				
+    # def update_stack_state(self):
+    #     """
+    #     Records the current state of the call stack after each cycle.
+    #     This method is called at the end of each cycle to capture the stack state.
+    #     """
+    #     print(f"\nUpdating stack state at cycle {self.Total_instructions}")
+    #     print(f"Current call stack: {self.call_stack}")
+    #     current_stack = {
+    #         'cycle': self.Total_instructions,
+    #         'stack': [{'return_address': addr['return_address'], 
+    #                   'instruction_type': addr['instruction_type'],
+    #                   'pc': addr['pc']} for addr in self.call_stack]
+    #     }
+    #     print(f"New stack state: {current_stack}")
+    #     self.stack_states.append(current_stack)
         
-        
+    #     # Print the current stack contents
+    #     print("\nCurrent Stack Contents:")
+    #     if not self.call_stack:
+    #         print("Stack is empty")
+    #     else:
+    #         for i, item in enumerate(self.call_stack):
+    #             print(f"Stack Level {i}:")
+    #             print(f"  Instruction Type: {item['instruction_type']}")
+    #             print(f"  Return Address: 0x{item['return_address']:08x}")
+    #             print(f"  PC: 0x{item['pc']:08x}")
+    def update_stack_state(self):
+        """
+        Records the current state of the call stack after each cycle.
+        This method is called at the end of each cycle to capture the stack state.
+        """
+        print(f"\nUpdating stack state at cycle {self.Total_instructions}")
+        print(f"Current call stack: {self.call_stack}")
+        current_stack = {
+            'cycle': self.Total_instructions,
+            'stack': [{'return_address': addr['return_address'], 
+                      'instruction_type': addr['instruction_type'],
+                      'pc': addr['pc']} for addr in self.call_stack]
+        }
+        print(f"New stack state: {current_stack}")
+        self.stack_states.append(current_stack)
 
+        # Print the current stack contents
+        print("\nCurrent Stack Contents:")
+        if not self.call_stack:
+            print("Stack is empty")
+        else:
+            for i, item in enumerate(self.call_stack):
+                print(f"Stack Level {i}:")
+                print(f"  Instruction Type: {item['instruction_type']}")
+                print(f"  Return Address: 0x{item['return_address']:08x}")
+                print(f"  PC: 0x{item['pc']:08x}")
+
+        # Write to stack_states.txt
+        try:
+            import os
+            current_dir = os.path.dirname(os.path.abspath(__file__))
+            file_path = os.path.join(current_dir, 'stack_states.txt')
+
+            with open(file_path, 'a') as f:  # Using 'a' for append mode
+                f.write(f"\n=== Cycle {self.Total_instructions} ===\n")
+                if not self.call_stack:
+                    f.write("Stack is empty\n")
+                else:
+                    for i, item in enumerate(self.call_stack):
+                        f.write(f"Stack Level {i}:\n")
+                        f.write(f"  Instruction Type: {item['instruction_type']}\n")
+                        f.write(f"  Return Address: 0x{item['return_address']:08x}\n")
+                        f.write(f"  PC: 0x{item['pc']:08x}\n")
+                f.write("-" * 50 + "\n")
+            
+        except Exception as e:
+            print(f"Error writing to stack_states.txt: {str(e)}")
+
+    def push_stack(self, return_address, instruction_type, pc):
+        """
+        Pushes a return address onto the call stack when a branch or jump instruction is encountered.
+        
+        Args:
+            return_address: The address to return to after the branch/jump
+            instruction_type: The type of instruction (JAL, JALR, BEQ, etc.)
+            pc: The program counter value of the branch/jump instruction
+        """
+        print(f"\nPushing to stack:")
+        print(f"Return Address: 0x{return_address:08x}")
+        print(f"Instruction Type: {instruction_type}")
+        print(f"PC: 0x{pc:08x}")
+        self.call_stack.append({
+            'return_address': return_address,
+            'instruction_type': instruction_type,
+            'pc': pc
+        })
+        print(f"Current stack size: {len(self.call_stack)}")
+
+    def pop_stack(self):
+        """
+        Pops a return address from the call stack when returning from a branch or jump.
+        
+        Returns:
+            The return address entry that was popped, or None if the stack is empty
+        """
+        if self.call_stack:
+            popped_entry = self.call_stack.pop()
+            print(f"\nPopping from stack:")
+            print(f"Return Address: 0x{popped_entry['return_address']:08x}")
+            print(f"Instruction Type: {popped_entry['instruction_type']}")
+            print(f"PC: 0x{popped_entry['pc']:08x}")
+            return popped_entry
+        return None
+
+    def write_stack_states(self):
+        import os
+        print("\n=== Writing Stack States ===")
+        print(f"Number of stack states to write: {len(self.stack_states)}")
+        
+        try:
+            # Get the absolute path to the src directory
+            current_dir = os.path.dirname(os.path.abspath(__file__))
+            file_path = os.path.join(current_dir, 'stack_states.txt')
+            
+            print(f"\nFile Information:")
+            print(f"Current directory: {current_dir}")
+            print(f"Target file path: {file_path}")
+            print(f"Directory exists: {os.path.exists(current_dir)}")
+            print(f"File exists: {os.path.exists(file_path)}")
+            
+            print("\nStack States Content:")
+            with open(file_path, 'w') as f:
+                f.write("=== Current Stack States ===\n\n")
+                
+                # Write current stack contents
+                f.write("Current Stack Contents:\n")
+                if not self.call_stack:
+                    print("Stack is empty")
+                    f.write("Stack is empty\n")
+                else:
+                    for i, item in enumerate(self.call_stack):
+                        stack_entry = f"Stack Level {i}:\n"
+                        stack_entry += f"  Instruction Type: {item['instruction_type']}\n"
+                        stack_entry += f"  Return Address: 0x{item['return_address']:08x}\n"
+                        stack_entry += f"  PC: 0x{item['pc']:08x}\n"
+                        print(stack_entry)
+                        f.write(stack_entry)
+                
+                f.write("\n" + "="*50 + "\n\n")
+                
+                # Write stack states history
+                f.write("Stack States History:\n\n")
+                for state in self.stack_states:
+                    f.write(f"Cycle {state['cycle']}:\n")
+                    if not state['stack']:
+                        f.write("  Stack is empty\n")
+                    else:
+                        for item in state['stack']:
+                            f.write(f"  Instruction Type: {item['instruction_type']}\n")
+                            f.write(f"  Return Address: 0x{item['return_address']:08x}\n")
+                            f.write(f"  PC: 0x{item['pc']:08x}\n")
+                            f.write("\n")
+                    f.write("-" * 50 + "\n")
+            
+            print("\nSuccessfully wrote to file!")
+            
+        except Exception as e:
+            print(f"\nError Details:")
+            print(f"Error type: {type(e).__name__}")
+            print(f"Error message: {str(e)}")
+            print(f"Current working directory: {os.getcwd()}")
+            print(f"Directory contents: {os.listdir('.')}")
+            print(f"Parent directory contents: {os.listdir('..')}")

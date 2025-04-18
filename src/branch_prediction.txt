@@ -1,143 +1,878 @@
 Branch Prediction Statistics
 ==========================
-Total branches executed: 19
-Correct predictions: 13
-Branch mispredictions: 6
-Branch prediction accuracy: 68.42%
-Branch prediction table size: 6
+Total branches executed: 124
+Correct predictions: 78
+Branch mispredictions: 46
+Branch prediction accuracy: 62.90%
+Branch prediction table size: 7
 
 Detailed Branch Prediction Information
 ==================================
-PC: 0x0000000c
+PC: 0x00000010
 Instruction: JAL x1, 8
 Prediction: Taken
 Actual: Taken
-Target Address: 0x00000014
+Target Address: 0x00000018
 Misprediction: No
 --------------------------------------------------
-PC: 0x00000020
-Instruction: BLT x19, x10, 12
+PC: 0x00000024
+Instruction: BLT x29, x19, 16
 Prediction: Taken
 Actual: Taken
-Target Address: 0x0000002c
+Target Address: 0x00000034
 Misprediction: No
 --------------------------------------------------
-PC: 0x00000030
-Instruction: JAL x1, -28
+PC: 0x00000038
+Instruction: JAL x1, -32
 Prediction: Taken
 Actual: Taken
-Target Address: 0x00000014
+Target Address: 0x00000018
 Misprediction: No
 --------------------------------------------------
-PC: 0x00000020
-Instruction: BLT x19, x10, 12
+PC: 0x00000024
+Instruction: BLT x29, x19, 16
 Prediction: Taken
 Actual: Taken
-Target Address: 0x0000002c
+Target Address: 0x00000034
 Misprediction: Yes
 --------------------------------------------------
-PC: 0x00000030
-Instruction: JAL x1, -28
+PC: 0x00000038
+Instruction: JAL x1, -32
 Prediction: Taken
 Actual: Taken
-Target Address: 0x00000014
+Target Address: 0x00000018
 Misprediction: Yes
 --------------------------------------------------
-PC: 0x00000020
-Instruction: BLT x19, x10, 12
+PC: 0x00000024
+Instruction: BLT x29, x19, 16
 Prediction: Not Taken
 Actual: Taken
-Target Address: 0x0000002c
+Target Address: 0x00000034
 Misprediction: Yes
 --------------------------------------------------
-PC: 0x00000030
-Instruction: JAL x1, -28
+PC: 0x00000038
+Instruction: JAL x1, -32
 Prediction: Taken
 Actual: Taken
-Target Address: 0x00000014
+Target Address: 0x00000018
 Misprediction: No
 --------------------------------------------------
-PC: 0x00000020
-Instruction: BLT x19, x10, 12
+PC: 0x00000024
+Instruction: BLT x29, x19, 16
 Prediction: Not Taken
 Actual: Taken
-Target Address: 0x0000002c
+Target Address: 0x00000034
 Misprediction: Yes
 --------------------------------------------------
-PC: 0x00000030
-Instruction: JAL x1, -28
+PC: 0x00000038
+Instruction: JAL x1, -32
 Prediction: Taken
 Actual: Taken
-Target Address: 0x00000014
+Target Address: 0x00000018
 Misprediction: No
 --------------------------------------------------
-PC: 0x00000020
-Instruction: BLT x19, x10, 12
+PC: 0x00000024
+Instruction: BLT x29, x19, 16
 Prediction: Not Taken
 Actual: Taken
-Target Address: 0x0000002c
+Target Address: 0x00000034
 Misprediction: Yes
 --------------------------------------------------
-PC: 0x00000030
-Instruction: JAL x1, -28
+PC: 0x00000038
+Instruction: JAL x1, -32
 Prediction: Taken
 Actual: Taken
-Target Address: 0x00000014
+Target Address: 0x00000018
 Misprediction: No
 --------------------------------------------------
-PC: 0x00000020
-Instruction: BLT x19, x10, 12
+PC: 0x00000024
+Instruction: BLT x29, x19, 16
+Prediction: Not Taken
+Actual: Taken
+Target Address: 0x00000034
+Misprediction: Yes
+--------------------------------------------------
+PC: 0x00000038
+Instruction: JAL x1, -32
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000018
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000024
+Instruction: BLT x29, x19, 16
 Prediction: Not Taken
 Actual: Not Taken
-Target Address: 0x00000024
+Target Address: 0x00000028
 Misprediction: No
 --------------------------------------------------
-PC: 0x00000028
+PC: 0x00000030
 Instruction: JALR x0, x1, 0
 Prediction: Taken
 Actual: Taken
-Target Address: 0x00000034
+Target Address: 0x0000003c
 Misprediction: No
 --------------------------------------------------
-PC: 0x00000044
+PC: 0x00000060
+Instruction: JAL x1, -72
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000018
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000024
+Instruction: BLT x29, x19, 16
+Prediction: Not Taken
+Actual: Not Taken
+Target Address: 0x00000028
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000030
 Instruction: JALR x0, x1, 0
 Prediction: Taken
 Actual: Taken
-Target Address: 0x00000034
-Misprediction: No
---------------------------------------------------
-PC: 0x00000044
-Instruction: JALR x0, x1, 0
-Prediction: Taken
-Actual: Taken
-Target Address: 0x00000034
-Misprediction: No
---------------------------------------------------
-PC: 0x00000044
-Instruction: JALR x0, x1, 0
-Prediction: Taken
-Actual: Taken
-Target Address: 0x00000034
-Misprediction: No
---------------------------------------------------
-PC: 0x00000044
-Instruction: JALR x0, x1, 0
-Prediction: Taken
-Actual: Taken
-Target Address: 0x00000034
-Misprediction: No
---------------------------------------------------
-PC: 0x00000044
-Instruction: JALR x0, x1, 0
-Prediction: Taken
-Actual: Taken
-Target Address: 0x00000010
+Target Address: 0x00000064
 Misprediction: Yes
 --------------------------------------------------
-PC: 0x00000010
-Instruction: BEQ x0, x0, 56
+PC: 0x00000078
+Instruction: JALR x0, x1, 0
 Prediction: Taken
 Actual: Taken
-Target Address: 0x00000048
+Target Address: 0x0000003c
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000060
+Instruction: JAL x1, -72
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000018
+Misprediction: Yes
+--------------------------------------------------
+PC: 0x00000024
+Instruction: BLT x29, x19, 16
+Prediction: Not Taken
+Actual: Not Taken
+Target Address: 0x00000028
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000030
+Instruction: JALR x0, x1, 0
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000064
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000078
+Instruction: JALR x0, x1, 0
+Prediction: Taken
+Actual: Taken
+Target Address: 0x0000003c
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000060
+Instruction: JAL x1, -72
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000018
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000024
+Instruction: BLT x29, x19, 16
+Prediction: Not Taken
+Actual: Taken
+Target Address: 0x00000034
+Misprediction: Yes
+--------------------------------------------------
+PC: 0x00000038
+Instruction: JAL x1, -32
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000018
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000024
+Instruction: BLT x29, x19, 16
+Prediction: Not Taken
+Actual: Not Taken
+Target Address: 0x00000028
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000030
+Instruction: JALR x0, x1, 0
+Prediction: Taken
+Actual: Taken
+Target Address: 0x0000003c
+Misprediction: Yes
+--------------------------------------------------
+PC: 0x00000060
+Instruction: JAL x1, -72
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000018
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000024
+Instruction: BLT x29, x19, 16
+Prediction: Not Taken
+Actual: Not Taken
+Target Address: 0x00000028
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000030
+Instruction: JALR x0, x1, 0
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000064
+Misprediction: Yes
+--------------------------------------------------
+PC: 0x00000078
+Instruction: JALR x0, x1, 0
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000064
+Misprediction: Yes
+--------------------------------------------------
+PC: 0x00000078
+Instruction: JALR x0, x1, 0
+Prediction: Taken
+Actual: Taken
+Target Address: 0x0000003c
+Misprediction: Yes
+--------------------------------------------------
+PC: 0x00000060
+Instruction: JAL x1, -72
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000018
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000024
+Instruction: BLT x29, x19, 16
+Prediction: Not Taken
+Actual: Taken
+Target Address: 0x00000034
+Misprediction: Yes
+--------------------------------------------------
+PC: 0x00000038
+Instruction: JAL x1, -32
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000018
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000024
+Instruction: BLT x29, x19, 16
+Prediction: Not Taken
+Actual: Taken
+Target Address: 0x00000034
+Misprediction: Yes
+--------------------------------------------------
+PC: 0x00000038
+Instruction: JAL x1, -32
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000018
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000024
+Instruction: BLT x29, x19, 16
+Prediction: Not Taken
+Actual: Not Taken
+Target Address: 0x00000028
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000030
+Instruction: JALR x0, x1, 0
+Prediction: Taken
+Actual: Taken
+Target Address: 0x0000003c
+Misprediction: Yes
+--------------------------------------------------
+PC: 0x00000060
+Instruction: JAL x1, -72
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000018
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000024
+Instruction: BLT x29, x19, 16
+Prediction: Not Taken
+Actual: Not Taken
+Target Address: 0x00000028
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000030
+Instruction: JALR x0, x1, 0
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000064
+Misprediction: Yes
+--------------------------------------------------
+PC: 0x00000078
+Instruction: JALR x0, x1, 0
+Prediction: Taken
+Actual: Taken
+Target Address: 0x0000003c
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000060
+Instruction: JAL x1, -72
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000018
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000024
+Instruction: BLT x29, x19, 16
+Prediction: Not Taken
+Actual: Not Taken
+Target Address: 0x00000028
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000030
+Instruction: JALR x0, x1, 0
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000064
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000078
+Instruction: JALR x0, x1, 0
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000064
+Misprediction: Yes
+--------------------------------------------------
+PC: 0x00000078
+Instruction: JALR x0, x1, 0
+Prediction: Taken
+Actual: Taken
+Target Address: 0x0000003c
+Misprediction: Yes
+--------------------------------------------------
+PC: 0x00000060
+Instruction: JAL x1, -72
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000018
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000024
+Instruction: BLT x29, x19, 16
+Prediction: Not Taken
+Actual: Taken
+Target Address: 0x00000034
+Misprediction: Yes
+--------------------------------------------------
+PC: 0x00000038
+Instruction: JAL x1, -32
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000018
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000024
+Instruction: BLT x29, x19, 16
+Prediction: Not Taken
+Actual: Taken
+Target Address: 0x00000034
+Misprediction: Yes
+--------------------------------------------------
+PC: 0x00000038
+Instruction: JAL x1, -32
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000018
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000024
+Instruction: BLT x29, x19, 16
+Prediction: Not Taken
+Actual: Taken
+Target Address: 0x00000034
+Misprediction: Yes
+--------------------------------------------------
+PC: 0x00000038
+Instruction: JAL x1, -32
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000018
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000024
+Instruction: BLT x29, x19, 16
+Prediction: Not Taken
+Actual: Not Taken
+Target Address: 0x00000028
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000030
+Instruction: JALR x0, x1, 0
+Prediction: Taken
+Actual: Taken
+Target Address: 0x0000003c
+Misprediction: Yes
+--------------------------------------------------
+PC: 0x00000060
+Instruction: JAL x1, -72
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000018
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000024
+Instruction: BLT x29, x19, 16
+Prediction: Not Taken
+Actual: Not Taken
+Target Address: 0x00000028
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000030
+Instruction: JALR x0, x1, 0
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000064
+Misprediction: Yes
+--------------------------------------------------
+PC: 0x00000078
+Instruction: JALR x0, x1, 0
+Prediction: Taken
+Actual: Taken
+Target Address: 0x0000003c
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000060
+Instruction: JAL x1, -72
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000018
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000024
+Instruction: BLT x29, x19, 16
+Prediction: Not Taken
+Actual: Not Taken
+Target Address: 0x00000028
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000030
+Instruction: JALR x0, x1, 0
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000064
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000078
+Instruction: JALR x0, x1, 0
+Prediction: Taken
+Actual: Taken
+Target Address: 0x0000003c
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000060
+Instruction: JAL x1, -72
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000018
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000024
+Instruction: BLT x29, x19, 16
+Prediction: Not Taken
+Actual: Taken
+Target Address: 0x00000034
+Misprediction: Yes
+--------------------------------------------------
+PC: 0x00000038
+Instruction: JAL x1, -32
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000018
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000024
+Instruction: BLT x29, x19, 16
+Prediction: Not Taken
+Actual: Not Taken
+Target Address: 0x00000028
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000030
+Instruction: JALR x0, x1, 0
+Prediction: Taken
+Actual: Taken
+Target Address: 0x0000003c
+Misprediction: Yes
+--------------------------------------------------
+PC: 0x00000060
+Instruction: JAL x1, -72
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000018
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000024
+Instruction: BLT x29, x19, 16
+Prediction: Not Taken
+Actual: Not Taken
+Target Address: 0x00000028
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000030
+Instruction: JALR x0, x1, 0
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000064
+Misprediction: Yes
+--------------------------------------------------
+PC: 0x00000078
+Instruction: JALR x0, x1, 0
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000064
+Misprediction: Yes
+--------------------------------------------------
+PC: 0x00000078
+Instruction: JALR x0, x1, 0
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000064
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000078
+Instruction: JALR x0, x1, 0
+Prediction: Taken
+Actual: Taken
+Target Address: 0x0000003c
+Misprediction: Yes
+--------------------------------------------------
+PC: 0x00000060
+Instruction: JAL x1, -72
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000018
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000024
+Instruction: BLT x29, x19, 16
+Prediction: Not Taken
+Actual: Taken
+Target Address: 0x00000034
+Misprediction: Yes
+--------------------------------------------------
+PC: 0x00000038
+Instruction: JAL x1, -32
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000018
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000024
+Instruction: BLT x29, x19, 16
+Prediction: Not Taken
+Actual: Taken
+Target Address: 0x00000034
+Misprediction: Yes
+--------------------------------------------------
+PC: 0x00000038
+Instruction: JAL x1, -32
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000018
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000024
+Instruction: BLT x29, x19, 16
+Prediction: Not Taken
+Actual: Taken
+Target Address: 0x00000034
+Misprediction: Yes
+--------------------------------------------------
+PC: 0x00000038
+Instruction: JAL x1, -32
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000018
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000024
+Instruction: BLT x29, x19, 16
+Prediction: Not Taken
+Actual: Taken
+Target Address: 0x00000034
+Misprediction: Yes
+--------------------------------------------------
+PC: 0x00000038
+Instruction: JAL x1, -32
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000018
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000024
+Instruction: BLT x29, x19, 16
+Prediction: Not Taken
+Actual: Not Taken
+Target Address: 0x00000028
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000030
+Instruction: JALR x0, x1, 0
+Prediction: Taken
+Actual: Taken
+Target Address: 0x0000003c
+Misprediction: Yes
+--------------------------------------------------
+PC: 0x00000060
+Instruction: JAL x1, -72
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000018
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000024
+Instruction: BLT x29, x19, 16
+Prediction: Not Taken
+Actual: Not Taken
+Target Address: 0x00000028
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000030
+Instruction: JALR x0, x1, 0
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000064
+Misprediction: Yes
+--------------------------------------------------
+PC: 0x00000078
+Instruction: JALR x0, x1, 0
+Prediction: Taken
+Actual: Taken
+Target Address: 0x0000003c
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000060
+Instruction: JAL x1, -72
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000018
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000024
+Instruction: BLT x29, x19, 16
+Prediction: Not Taken
+Actual: Not Taken
+Target Address: 0x00000028
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000030
+Instruction: JALR x0, x1, 0
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000064
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000078
+Instruction: JALR x0, x1, 0
+Prediction: Taken
+Actual: Taken
+Target Address: 0x0000003c
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000060
+Instruction: JAL x1, -72
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000018
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000024
+Instruction: BLT x29, x19, 16
+Prediction: Not Taken
+Actual: Taken
+Target Address: 0x00000034
+Misprediction: Yes
+--------------------------------------------------
+PC: 0x00000038
+Instruction: JAL x1, -32
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000018
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000024
+Instruction: BLT x29, x19, 16
+Prediction: Not Taken
+Actual: Not Taken
+Target Address: 0x00000028
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000030
+Instruction: JALR x0, x1, 0
+Prediction: Taken
+Actual: Taken
+Target Address: 0x0000003c
+Misprediction: Yes
+--------------------------------------------------
+PC: 0x00000060
+Instruction: JAL x1, -72
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000018
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000024
+Instruction: BLT x29, x19, 16
+Prediction: Not Taken
+Actual: Not Taken
+Target Address: 0x00000028
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000030
+Instruction: JALR x0, x1, 0
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000064
+Misprediction: Yes
+--------------------------------------------------
+PC: 0x00000078
+Instruction: JALR x0, x1, 0
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000064
+Misprediction: Yes
+--------------------------------------------------
+PC: 0x00000078
+Instruction: JALR x0, x1, 0
+Prediction: Taken
+Actual: Taken
+Target Address: 0x0000003c
+Misprediction: Yes
+--------------------------------------------------
+PC: 0x00000060
+Instruction: JAL x1, -72
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000018
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000024
+Instruction: BLT x29, x19, 16
+Prediction: Not Taken
+Actual: Taken
+Target Address: 0x00000034
+Misprediction: Yes
+--------------------------------------------------
+PC: 0x00000038
+Instruction: JAL x1, -32
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000018
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000024
+Instruction: BLT x29, x19, 16
+Prediction: Not Taken
+Actual: Taken
+Target Address: 0x00000034
+Misprediction: Yes
+--------------------------------------------------
+PC: 0x00000038
+Instruction: JAL x1, -32
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000018
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000024
+Instruction: BLT x29, x19, 16
+Prediction: Not Taken
+Actual: Not Taken
+Target Address: 0x00000028
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000030
+Instruction: JALR x0, x1, 0
+Prediction: Taken
+Actual: Taken
+Target Address: 0x0000003c
+Misprediction: Yes
+--------------------------------------------------
+PC: 0x00000060
+Instruction: JAL x1, -72
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000018
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000024
+Instruction: BLT x29, x19, 16
+Prediction: Not Taken
+Actual: Not Taken
+Target Address: 0x00000028
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000030
+Instruction: JALR x0, x1, 0
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000064
+Misprediction: Yes
+--------------------------------------------------
+PC: 0x00000078
+Instruction: JALR x0, x1, 0
+Prediction: Taken
+Actual: Taken
+Target Address: 0x0000003c
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000060
+Instruction: JAL x1, -72
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000018
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000024
+Instruction: BLT x29, x19, 16
+Prediction: Not Taken
+Actual: Not Taken
+Target Address: 0x00000028
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000030
+Instruction: JALR x0, x1, 0
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000064
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000078
+Instruction: JALR x0, x1, 0
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000064
+Misprediction: Yes
+--------------------------------------------------
+PC: 0x00000078
+Instruction: JALR x0, x1, 0
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000064
+Misprediction: No
+--------------------------------------------------
+PC: 0x00000078
+Instruction: JALR x0, x1, 0
+Prediction: Taken
+Actual: Taken
+Target Address: 0x00000014
+Misprediction: Yes
+--------------------------------------------------
+PC: 0x00000014
+Instruction: BEQ x0, x0, 104
+Prediction: Taken
+Actual: Taken
+Target Address: 0x0000007c
 Misprediction: No
 --------------------------------------------------

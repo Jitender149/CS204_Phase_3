@@ -1,0 +1,875 @@
+{
+    "total_branches": 124,
+    "correct_predictions": 78,
+    "mispredictions": 46,
+    "predictions": [
+        {
+            "pc": 16,
+            "instruction": "JAL x1, 8",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 36,
+            "instruction": "BLT x29, x19, 16",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 56,
+            "instruction": "JAL x1, -32",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 36,
+            "instruction": "BLT x29, x19, 16",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 56,
+            "instruction": "JAL x1, -32",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 36,
+            "instruction": "BLT x29, x19, 16",
+            "prediction": "Not Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 56,
+            "instruction": "JAL x1, -32",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 36,
+            "instruction": "BLT x29, x19, 16",
+            "prediction": "Not Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 56,
+            "instruction": "JAL x1, -32",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 36,
+            "instruction": "BLT x29, x19, 16",
+            "prediction": "Not Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 56,
+            "instruction": "JAL x1, -32",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 36,
+            "instruction": "BLT x29, x19, 16",
+            "prediction": "Not Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 56,
+            "instruction": "JAL x1, -32",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 36,
+            "instruction": "BLT x29, x19, 16",
+            "prediction": "Not Taken",
+            "actual": "Not Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 48,
+            "instruction": "JALR x0, x1, 0",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 96,
+            "instruction": "JAL x1, -72",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 36,
+            "instruction": "BLT x29, x19, 16",
+            "prediction": "Not Taken",
+            "actual": "Not Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 48,
+            "instruction": "JALR x0, x1, 0",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 120,
+            "instruction": "JALR x0, x1, 0",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 96,
+            "instruction": "JAL x1, -72",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 36,
+            "instruction": "BLT x29, x19, 16",
+            "prediction": "Not Taken",
+            "actual": "Not Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 48,
+            "instruction": "JALR x0, x1, 0",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 120,
+            "instruction": "JALR x0, x1, 0",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 96,
+            "instruction": "JAL x1, -72",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 36,
+            "instruction": "BLT x29, x19, 16",
+            "prediction": "Not Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 56,
+            "instruction": "JAL x1, -32",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 36,
+            "instruction": "BLT x29, x19, 16",
+            "prediction": "Not Taken",
+            "actual": "Not Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 48,
+            "instruction": "JALR x0, x1, 0",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 96,
+            "instruction": "JAL x1, -72",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 36,
+            "instruction": "BLT x29, x19, 16",
+            "prediction": "Not Taken",
+            "actual": "Not Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 48,
+            "instruction": "JALR x0, x1, 0",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 120,
+            "instruction": "JALR x0, x1, 0",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 120,
+            "instruction": "JALR x0, x1, 0",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 96,
+            "instruction": "JAL x1, -72",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 36,
+            "instruction": "BLT x29, x19, 16",
+            "prediction": "Not Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 56,
+            "instruction": "JAL x1, -32",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 36,
+            "instruction": "BLT x29, x19, 16",
+            "prediction": "Not Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 56,
+            "instruction": "JAL x1, -32",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 36,
+            "instruction": "BLT x29, x19, 16",
+            "prediction": "Not Taken",
+            "actual": "Not Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 48,
+            "instruction": "JALR x0, x1, 0",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 96,
+            "instruction": "JAL x1, -72",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 36,
+            "instruction": "BLT x29, x19, 16",
+            "prediction": "Not Taken",
+            "actual": "Not Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 48,
+            "instruction": "JALR x0, x1, 0",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 120,
+            "instruction": "JALR x0, x1, 0",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 96,
+            "instruction": "JAL x1, -72",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 36,
+            "instruction": "BLT x29, x19, 16",
+            "prediction": "Not Taken",
+            "actual": "Not Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 48,
+            "instruction": "JALR x0, x1, 0",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 120,
+            "instruction": "JALR x0, x1, 0",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 120,
+            "instruction": "JALR x0, x1, 0",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 96,
+            "instruction": "JAL x1, -72",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 36,
+            "instruction": "BLT x29, x19, 16",
+            "prediction": "Not Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 56,
+            "instruction": "JAL x1, -32",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 36,
+            "instruction": "BLT x29, x19, 16",
+            "prediction": "Not Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 56,
+            "instruction": "JAL x1, -32",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 36,
+            "instruction": "BLT x29, x19, 16",
+            "prediction": "Not Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 56,
+            "instruction": "JAL x1, -32",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 36,
+            "instruction": "BLT x29, x19, 16",
+            "prediction": "Not Taken",
+            "actual": "Not Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 48,
+            "instruction": "JALR x0, x1, 0",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 96,
+            "instruction": "JAL x1, -72",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 36,
+            "instruction": "BLT x29, x19, 16",
+            "prediction": "Not Taken",
+            "actual": "Not Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 48,
+            "instruction": "JALR x0, x1, 0",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 120,
+            "instruction": "JALR x0, x1, 0",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 96,
+            "instruction": "JAL x1, -72",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 36,
+            "instruction": "BLT x29, x19, 16",
+            "prediction": "Not Taken",
+            "actual": "Not Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 48,
+            "instruction": "JALR x0, x1, 0",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 120,
+            "instruction": "JALR x0, x1, 0",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 96,
+            "instruction": "JAL x1, -72",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 36,
+            "instruction": "BLT x29, x19, 16",
+            "prediction": "Not Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 56,
+            "instruction": "JAL x1, -32",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 36,
+            "instruction": "BLT x29, x19, 16",
+            "prediction": "Not Taken",
+            "actual": "Not Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 48,
+            "instruction": "JALR x0, x1, 0",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 96,
+            "instruction": "JAL x1, -72",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 36,
+            "instruction": "BLT x29, x19, 16",
+            "prediction": "Not Taken",
+            "actual": "Not Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 48,
+            "instruction": "JALR x0, x1, 0",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 120,
+            "instruction": "JALR x0, x1, 0",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 120,
+            "instruction": "JALR x0, x1, 0",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 120,
+            "instruction": "JALR x0, x1, 0",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 96,
+            "instruction": "JAL x1, -72",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 36,
+            "instruction": "BLT x29, x19, 16",
+            "prediction": "Not Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 56,
+            "instruction": "JAL x1, -32",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 36,
+            "instruction": "BLT x29, x19, 16",
+            "prediction": "Not Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 56,
+            "instruction": "JAL x1, -32",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 36,
+            "instruction": "BLT x29, x19, 16",
+            "prediction": "Not Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 56,
+            "instruction": "JAL x1, -32",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 36,
+            "instruction": "BLT x29, x19, 16",
+            "prediction": "Not Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 56,
+            "instruction": "JAL x1, -32",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 36,
+            "instruction": "BLT x29, x19, 16",
+            "prediction": "Not Taken",
+            "actual": "Not Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 48,
+            "instruction": "JALR x0, x1, 0",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 96,
+            "instruction": "JAL x1, -72",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 36,
+            "instruction": "BLT x29, x19, 16",
+            "prediction": "Not Taken",
+            "actual": "Not Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 48,
+            "instruction": "JALR x0, x1, 0",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 120,
+            "instruction": "JALR x0, x1, 0",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 96,
+            "instruction": "JAL x1, -72",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 36,
+            "instruction": "BLT x29, x19, 16",
+            "prediction": "Not Taken",
+            "actual": "Not Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 48,
+            "instruction": "JALR x0, x1, 0",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 120,
+            "instruction": "JALR x0, x1, 0",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 96,
+            "instruction": "JAL x1, -72",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 36,
+            "instruction": "BLT x29, x19, 16",
+            "prediction": "Not Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 56,
+            "instruction": "JAL x1, -32",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 36,
+            "instruction": "BLT x29, x19, 16",
+            "prediction": "Not Taken",
+            "actual": "Not Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 48,
+            "instruction": "JALR x0, x1, 0",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 96,
+            "instruction": "JAL x1, -72",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 36,
+            "instruction": "BLT x29, x19, 16",
+            "prediction": "Not Taken",
+            "actual": "Not Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 48,
+            "instruction": "JALR x0, x1, 0",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 120,
+            "instruction": "JALR x0, x1, 0",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 120,
+            "instruction": "JALR x0, x1, 0",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 96,
+            "instruction": "JAL x1, -72",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 36,
+            "instruction": "BLT x29, x19, 16",
+            "prediction": "Not Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 56,
+            "instruction": "JAL x1, -32",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 36,
+            "instruction": "BLT x29, x19, 16",
+            "prediction": "Not Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 56,
+            "instruction": "JAL x1, -32",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 36,
+            "instruction": "BLT x29, x19, 16",
+            "prediction": "Not Taken",
+            "actual": "Not Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 48,
+            "instruction": "JALR x0, x1, 0",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 96,
+            "instruction": "JAL x1, -72",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 36,
+            "instruction": "BLT x29, x19, 16",
+            "prediction": "Not Taken",
+            "actual": "Not Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 48,
+            "instruction": "JALR x0, x1, 0",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 120,
+            "instruction": "JALR x0, x1, 0",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 96,
+            "instruction": "JAL x1, -72",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 36,
+            "instruction": "BLT x29, x19, 16",
+            "prediction": "Not Taken",
+            "actual": "Not Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 48,
+            "instruction": "JALR x0, x1, 0",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 120,
+            "instruction": "JALR x0, x1, 0",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 120,
+            "instruction": "JALR x0, x1, 0",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        },
+        {
+            "pc": 120,
+            "instruction": "JALR x0, x1, 0",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": true
+        },
+        {
+            "pc": 20,
+            "instruction": "BEQ x0, x0, 104",
+            "prediction": "Taken",
+            "actual": "Taken",
+            "misprediction": false
+        }
+    ]
+}

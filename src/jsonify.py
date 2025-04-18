@@ -1,4 +1,5 @@
 import json
+import os
 
 filename = 'reg.txt'
 dict1 = {}
@@ -193,6 +194,103 @@ with open(filename) as fh:
     jsonFile = open(filepath, 'w')
     json.dump(array, jsonFile, indent=4)
     jsonFile.close()
+    
+def create_json_files():
+    # Get the absolute path to the frontend directory
+    frontend_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'frontend', 'src', 'Components')
+    
+    # Create branch_prediction.json
+    try:
+        with open('branch_prediction.txt', 'r') as f:
+            content = f.read()
+            # Split the content into sections
+            sections = content.split('\n\n')
+            data = {
+                'statistics': {},
+                'predictions': []
+            }
+            
+            # Parse statistics
+            stats_section = sections[0].split('\n')
+            for line in stats_section[2:]:  # Skip header and separator
+                if line:
+                    key, value = line.split(': ')
+                    data['statistics'][key] = value
+            
+            # Parse detailed predictions
+            for pred in sections[1:]:
+                if pred.strip():
+                    pred_lines = pred.split('\n')
+                    if len(pred_lines) >= 6:  # Ensure we have all required fields
+                        prediction = {
+                            'pc': pred_lines[0].split(': ')[1],
+                            'instruction': pred_lines[1].split(': ')[1],
+                            'prediction': pred_lines[2].split(': ')[1],
+                            'actual': pred_lines[3].split(': ')[1],
+                            'target': pred_lines[4].split(': ')[1],
+                            'misprediction': pred_lines[5].split(': ')[1] == 'Yes'
+                        }
+                        data['predictions'].append(prediction)
+            
+            # Write to JSON file
+            with open(os.path.join(frontend_path, 'branch_prediction.json'), 'w') as f:
+                json.dump(data, f, indent=4)
+    except Exception as e:
+        print(f"Error creating branch_prediction.json: {str(e)}")
+
+# Convert branch_prediction.txt to branch_prediction.json
+filename = 'branch_prediction.txt'
+with open(filename) as fh:
+    predictions = []
+    current_prediction = {}
+    
+    for line in fh:
+        line = line.strip()
+        if not line:  # Skip empty lines
+            continue
+            
+        if line.startswith('PC:'):
+            # If we have a complete prediction, add it to the list
+            if current_prediction:
+                predictions.append(current_prediction)
+            current_prediction = {}
+            current_prediction['pc'] = int(line.split(': ')[1], 16)
+        elif line.startswith('Instruction:'):
+            current_prediction['instruction'] = line.split(': ')[1]
+        elif line.startswith('Prediction:'):
+            current_prediction['prediction'] = line.split(': ')[1]
+        elif line.startswith('Actual:'):
+            current_prediction['actual'] = line.split(': ')[1]
+        elif line.startswith('Target:'):
+            current_prediction['target'] = int(line.split(': ')[1], 16)
+        elif line.startswith('Misprediction:'):
+            current_prediction['misprediction'] = line.split(': ')[1].lower() == 'yes'
+    
+    # Add the last prediction if exists
+    if current_prediction:
+        predictions.append(current_prediction)
+    
+    # Calculate statistics
+    total_branches = len(predictions)
+    correct_predictions = sum(1 for p in predictions if not p['misprediction'])
+    mispredictions = total_branches - correct_predictions
+    
+    # Create the final data structure
+    data = {
+        'total_branches': total_branches,
+        'correct_predictions': correct_predictions,
+        'mispredictions': mispredictions,
+        'predictions': predictions
+    }
+    
+    # Write to JSON file
+    filepath = '../frontend/src/Components/branch_prediction.json'
+    jsonFile = open(filepath, 'w')
+    json.dump(data, jsonFile, indent=4)
+    jsonFile.close()
+
+if __name__ == "__main__":
+    create_json_files()
     
         
         

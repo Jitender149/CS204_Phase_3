@@ -62,6 +62,9 @@ const Stack = () => {
                     <Link to='/stack'>
                         <button type='button' className="px-6 py-2 bg-yellow-600 hover:bg-yellow-700 text-white font-bold rounded-lg transition duration-300 transform hover:scale-105">Stack</button>
                     </Link>
+                    <Link to='/branch-prediction'>
+                    <button type='button' className="px-6 py-2 bg-pink-600 hover:bg-pink-700 text-white font-bold rounded-lg transition duration-300 transform hover:scale-105">Branch</button>
+                    </Link>
                 </div>
             </div>
 

@@ -37,17 +37,28 @@ class BTB:
     
     def enter(self, is_jump, pc, next_address):  # adding a new entry to the branch prediction table
         if not self.find(pc):
-            # If this is a new entry, initialize based on the current branch outcome
-            self.table[pc] = [is_jump, next_address]
+            # For first-time branches, always predict taken
+            self.table[pc] = [True, next_address]
         else:
             # If entry exists, update the prediction bit based on actual outcome
-            # This is the 1-bit dynamic predictor logic - it flips the prediction
-            # bit based on the most recent branch outcome
             self.table[pc][0] = is_jump
             self.table[pc][1] = next_address
     
     def predict(self, pc):
-        return self.table[pc][0]
+        if pc in self.table:
+            return self.table[pc][0]
+        # For first-time branches not yet in table, predict taken
+        return True
     
     def next_add(self, pc):
-        return self.table[pc][1]
+        if pc in self.table:
+            return self.table[pc][1]
+        # For first-time branches, return PC+4 as a default target
+        return pc + 4
+    
+# for the first time we wait till the branch instruction is executed
+# then we update the prediction bit based on the actual outcome
+# then we update the next address based on the actual outcome
+# then we return the prediction bit and the next address
+
+

@@ -126,12 +126,12 @@ class processor:
             return
         # Branch Prediction
         btb=args[0] # BTB object is passed as an argument
-        if btb.find(state.PC):
-            state.branch_taken=btb.predict(state.PC)
-            if state.branch_taken:
-                state.PC_next=btb.next_add(state.PC)
-            else:
-                state.PC_next= state.PC + 4
+        # Always make a prediction, even for first-time branches
+        state.branch_taken = btb.predict(state.PC)
+        if state.branch_taken:
+            state.PC_next = btb.next_add(state.PC)
+        else:
+            state.PC_next = state.PC + 4
 
 
     # Function to update PC (instruction address generator)

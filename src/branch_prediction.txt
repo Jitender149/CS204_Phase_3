@@ -10,28 +10,28 @@ Detailed Branch Prediction Information
 ==================================
 PC: 0x0000000c
 Instruction: JAL x1, 8
-Prediction: Not Taken
+Prediction: Taken
 Actual: Taken
 Target Address: 0x00000014
 Misprediction: No
 --------------------------------------------------
 PC: 0x00000020
 Instruction: BLT x19, x10, 12
-Prediction: Not Taken
+Prediction: Taken
 Actual: Taken
 Target Address: 0x0000002c
 Misprediction: No
 --------------------------------------------------
 PC: 0x00000030
 Instruction: JAL x1, -28
-Prediction: Not Taken
+Prediction: Taken
 Actual: Taken
 Target Address: 0x00000014
 Misprediction: No
 --------------------------------------------------
 PC: 0x00000020
 Instruction: BLT x19, x10, 12
-Prediction: Not Taken
+Prediction: Taken
 Actual: Taken
 Target Address: 0x0000002c
 Misprediction: Yes
@@ -94,14 +94,14 @@ Misprediction: No
 --------------------------------------------------
 PC: 0x00000028
 Instruction: JALR x0, x1, 0
-Prediction: Not Taken
+Prediction: Taken
 Actual: Taken
 Target Address: 0x00000034
 Misprediction: No
 --------------------------------------------------
 PC: 0x00000044
 Instruction: JALR x0, x1, 0
-Prediction: Not Taken
+Prediction: Taken
 Actual: Taken
 Target Address: 0x00000034
 Misprediction: No
@@ -136,7 +136,7 @@ Misprediction: Yes
 --------------------------------------------------
 PC: 0x00000010
 Instruction: BEQ x0, x0, 56
-Prediction: Not Taken
+Prediction: Taken
 Actual: Taken
 Target Address: 0x00000048
 Misprediction: No

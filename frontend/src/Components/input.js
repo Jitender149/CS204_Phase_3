@@ -9,6 +9,7 @@ function Input() {
     const [printSpecificPipelineRegisters, setPrintSpecificPipelineRegisters] = useState(false);
     const [instructionNumber, setInstructionNumber] = useState(-1);
     const [selectedFile, setSelectedFile] = useState(null);
+    const [printBranchPredictionData, setPrintBranchPredictionData] = useState(false);
     
         function handleFileInput(e) {
           setSelectedFile(e.target.files[0]);
@@ -175,6 +176,15 @@ function Input() {
                                     />
                                 </div>
                             )}
+                            <div className="flex items-center p-4 bg-gray-700 rounded-lg hover:bg-gray-600 transition duration-300">
+                                <input
+                                    type="checkbox"
+                                    className="h-5 w-5 text-blue-500 rounded focus:ring-blue-400"
+                                    checked={printBranchPredictionData}
+                                    onChange={(e) => setPrintBranchPredictionData(e.target.checked)}
+                                />
+                                <label className="ml-3 text-lg font-medium">Display Branch Prediction Data</label>
+                            </div>
                         </div>
                     </div>
 

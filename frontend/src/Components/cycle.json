@@ -1,0 +1,802 @@
+[
+    {
+        "id": "1",
+        "writeback": "-1",
+        "memory": "-1",
+        "execute": "-1",
+        "decode": "-1",
+        "fetch": "AUIPC x10, 65536",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "2",
+        "writeback": "-1",
+        "memory": "-1",
+        "execute": "-1",
+        "decode": "AUIPC x10, 65536",
+        "fetch": "LW x10, 0(x10)",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "3",
+        "writeback": "-1",
+        "memory": "-1",
+        "execute": "AUIPC x10, 65536",
+        "decode": "LW x10, 0(x10)",
+        "fetch": "ADDI x19, x0, 1",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "4",
+        "writeback": "-1",
+        "memory": "AUIPC x10, 65536",
+        "execute": "LW x10, 0(x10)",
+        "decode": "ADDI x19, x0, 1",
+        "fetch": "JAL x1, 8",
+        "forwarding": "2",
+        "value": "forwarded from execute"
+    },
+    {
+        "id": "5",
+        "writeback": "AUIPC x10, 65536",
+        "memory": "LW x10, 0(x10)",
+        "execute": "ADDI x19, x0, 1",
+        "decode": "JAL x1, 8",
+        "fetch": "BEQ x0, x0, 56",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "6",
+        "writeback": "LW x10, 0(x10)",
+        "memory": "ADDI x19, x0, 1",
+        "execute": "JAL x1, 8",
+        "decode": "-1",
+        "fetch": "ADDI x2, x2, -8",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "7",
+        "writeback": "ADDI x19, x0, 1",
+        "memory": "JAL x1, 8",
+        "execute": "-1",
+        "decode": "ADDI x2, x2, -8",
+        "fetch": "SW x10, 0(x2)",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "8",
+        "writeback": "JAL x1, 8",
+        "memory": "-1",
+        "execute": "ADDI x2, x2, -8",
+        "decode": "SW x10, 0(x2)",
+        "fetch": "SW x1, 4(x2)",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "9",
+        "writeback": "-1",
+        "memory": "ADDI x2, x2, -8",
+        "execute": "SW x10, 0(x2)",
+        "decode": "SW x1, 4(x2)",
+        "fetch": "BLT x19, x10, 12",
+        "forwarding": "2",
+        "value": "forwarded from execute"
+    },
+    {
+        "id": "10",
+        "writeback": "ADDI x2, x2, -8",
+        "memory": "SW x10, 0(x2)",
+        "execute": "SW x1, 4(x2)",
+        "decode": "BLT x19, x10, 12",
+        "fetch": "ADDI x2, x2, 8",
+        "forwarding": "2",
+        "value": "forwarded from mem"
+    },
+    {
+        "id": "11",
+        "writeback": "SW x10, 0(x2)",
+        "memory": "SW x1, 4(x2)",
+        "execute": "BLT x19, x10, 12",
+        "decode": "-1",
+        "fetch": "ADDI x10, x10, -1",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "12",
+        "writeback": "SW x1, 4(x2)",
+        "memory": "BLT x19, x10, 12",
+        "execute": "-1",
+        "decode": "ADDI x10, x10, -1",
+        "fetch": "JAL x1, -28",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "13",
+        "writeback": "BLT x19, x10, 12",
+        "memory": "-1",
+        "execute": "ADDI x10, x10, -1",
+        "decode": "JAL x1, -28",
+        "fetch": "LW x20, 0(x2)",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "14",
+        "writeback": "-1",
+        "memory": "ADDI x10, x10, -1",
+        "execute": "JAL x1, -28",
+        "decode": "-1",
+        "fetch": "ADDI x2, x2, -8",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "15",
+        "writeback": "ADDI x10, x10, -1",
+        "memory": "JAL x1, -28",
+        "execute": "-1",
+        "decode": "ADDI x2, x2, -8",
+        "fetch": "SW x10, 0(x2)",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "16",
+        "writeback": "JAL x1, -28",
+        "memory": "-1",
+        "execute": "ADDI x2, x2, -8",
+        "decode": "SW x10, 0(x2)",
+        "fetch": "SW x1, 4(x2)",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "17",
+        "writeback": "-1",
+        "memory": "ADDI x2, x2, -8",
+        "execute": "SW x10, 0(x2)",
+        "decode": "SW x1, 4(x2)",
+        "fetch": "BLT x19, x10, 12",
+        "forwarding": "2",
+        "value": "forwarded from execute"
+    },
+    {
+        "id": "18",
+        "writeback": "ADDI x2, x2, -8",
+        "memory": "SW x10, 0(x2)",
+        "execute": "SW x1, 4(x2)",
+        "decode": "BLT x19, x10, 12",
+        "fetch": "AUIPC x10, 65536",
+        "forwarding": "2",
+        "value": "forwarded from mem"
+    },
+    {
+        "id": "19",
+        "writeback": "SW x10, 0(x2)",
+        "memory": "SW x1, 4(x2)",
+        "execute": "BLT x19, x10, 12",
+        "decode": "-1",
+        "fetch": "ADDI x10, x10, -1",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "20",
+        "writeback": "SW x1, 4(x2)",
+        "memory": "BLT x19, x10, 12",
+        "execute": "-1",
+        "decode": "ADDI x10, x10, -1",
+        "fetch": "JAL x1, -28",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "21",
+        "writeback": "BLT x19, x10, 12",
+        "memory": "-1",
+        "execute": "ADDI x10, x10, -1",
+        "decode": "JAL x1, -28",
+        "fetch": "AUIPC x10, 65536",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "22",
+        "writeback": "-1",
+        "memory": "ADDI x10, x10, -1",
+        "execute": "JAL x1, -28",
+        "decode": "-1",
+        "fetch": "ADDI x2, x2, -8",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "23",
+        "writeback": "ADDI x10, x10, -1",
+        "memory": "JAL x1, -28",
+        "execute": "-1",
+        "decode": "ADDI x2, x2, -8",
+        "fetch": "SW x10, 0(x2)",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "24",
+        "writeback": "JAL x1, -28",
+        "memory": "-1",
+        "execute": "ADDI x2, x2, -8",
+        "decode": "SW x10, 0(x2)",
+        "fetch": "SW x1, 4(x2)",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "25",
+        "writeback": "-1",
+        "memory": "ADDI x2, x2, -8",
+        "execute": "SW x10, 0(x2)",
+        "decode": "SW x1, 4(x2)",
+        "fetch": "BLT x19, x10, 12",
+        "forwarding": "2",
+        "value": "forwarded from execute"
+    },
+    {
+        "id": "26",
+        "writeback": "ADDI x2, x2, -8",
+        "memory": "SW x10, 0(x2)",
+        "execute": "SW x1, 4(x2)",
+        "decode": "BLT x19, x10, 12",
+        "fetch": "ADDI x2, x2, 8",
+        "forwarding": "2",
+        "value": "forwarded from mem"
+    },
+    {
+        "id": "27",
+        "writeback": "SW x10, 0(x2)",
+        "memory": "SW x1, 4(x2)",
+        "execute": "BLT x19, x10, 12",
+        "decode": "-1",
+        "fetch": "ADDI x10, x10, -1",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "28",
+        "writeback": "SW x1, 4(x2)",
+        "memory": "BLT x19, x10, 12",
+        "execute": "-1",
+        "decode": "ADDI x10, x10, -1",
+        "fetch": "JAL x1, -28",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "29",
+        "writeback": "BLT x19, x10, 12",
+        "memory": "-1",
+        "execute": "ADDI x10, x10, -1",
+        "decode": "JAL x1, -28",
+        "fetch": "ADDI x2, x2, -8",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "30",
+        "writeback": "-1",
+        "memory": "ADDI x10, x10, -1",
+        "execute": "JAL x1, -28",
+        "decode": "ADDI x2, x2, -8",
+        "fetch": "SW x10, 0(x2)",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "31",
+        "writeback": "ADDI x10, x10, -1",
+        "memory": "JAL x1, -28",
+        "execute": "ADDI x2, x2, -8",
+        "decode": "SW x10, 0(x2)",
+        "fetch": "SW x1, 4(x2)",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "32",
+        "writeback": "JAL x1, -28",
+        "memory": "ADDI x2, x2, -8",
+        "execute": "SW x10, 0(x2)",
+        "decode": "SW x1, 4(x2)",
+        "fetch": "BLT x19, x10, 12",
+        "forwarding": "2",
+        "value": "forwarded from execute"
+    },
+    {
+        "id": "33",
+        "writeback": "ADDI x2, x2, -8",
+        "memory": "SW x10, 0(x2)",
+        "execute": "SW x1, 4(x2)",
+        "decode": "BLT x19, x10, 12",
+        "fetch": "ADDI x2, x2, 8",
+        "forwarding": "2",
+        "value": "forwarded from mem"
+    },
+    {
+        "id": "34",
+        "writeback": "SW x10, 0(x2)",
+        "memory": "SW x1, 4(x2)",
+        "execute": "BLT x19, x10, 12",
+        "decode": "-1",
+        "fetch": "ADDI x10, x10, -1",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "35",
+        "writeback": "SW x1, 4(x2)",
+        "memory": "BLT x19, x10, 12",
+        "execute": "-1",
+        "decode": "ADDI x10, x10, -1",
+        "fetch": "JAL x1, -28",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "36",
+        "writeback": "BLT x19, x10, 12",
+        "memory": "-1",
+        "execute": "ADDI x10, x10, -1",
+        "decode": "JAL x1, -28",
+        "fetch": "ADDI x2, x2, -8",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "37",
+        "writeback": "-1",
+        "memory": "ADDI x10, x10, -1",
+        "execute": "JAL x1, -28",
+        "decode": "ADDI x2, x2, -8",
+        "fetch": "SW x10, 0(x2)",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "38",
+        "writeback": "ADDI x10, x10, -1",
+        "memory": "JAL x1, -28",
+        "execute": "ADDI x2, x2, -8",
+        "decode": "SW x10, 0(x2)",
+        "fetch": "SW x1, 4(x2)",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "39",
+        "writeback": "JAL x1, -28",
+        "memory": "ADDI x2, x2, -8",
+        "execute": "SW x10, 0(x2)",
+        "decode": "SW x1, 4(x2)",
+        "fetch": "BLT x19, x10, 12",
+        "forwarding": "2",
+        "value": "forwarded from execute"
+    },
+    {
+        "id": "40",
+        "writeback": "ADDI x2, x2, -8",
+        "memory": "SW x10, 0(x2)",
+        "execute": "SW x1, 4(x2)",
+        "decode": "BLT x19, x10, 12",
+        "fetch": "ADDI x2, x2, 8",
+        "forwarding": "2",
+        "value": "forwarded from mem"
+    },
+    {
+        "id": "41",
+        "writeback": "SW x10, 0(x2)",
+        "memory": "SW x1, 4(x2)",
+        "execute": "BLT x19, x10, 12",
+        "decode": "-1",
+        "fetch": "ADDI x10, x10, -1",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "42",
+        "writeback": "SW x1, 4(x2)",
+        "memory": "BLT x19, x10, 12",
+        "execute": "-1",
+        "decode": "ADDI x10, x10, -1",
+        "fetch": "JAL x1, -28",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "43",
+        "writeback": "BLT x19, x10, 12",
+        "memory": "-1",
+        "execute": "ADDI x10, x10, -1",
+        "decode": "JAL x1, -28",
+        "fetch": "ADDI x2, x2, -8",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "44",
+        "writeback": "-1",
+        "memory": "ADDI x10, x10, -1",
+        "execute": "JAL x1, -28",
+        "decode": "ADDI x2, x2, -8",
+        "fetch": "SW x10, 0(x2)",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "45",
+        "writeback": "ADDI x10, x10, -1",
+        "memory": "JAL x1, -28",
+        "execute": "ADDI x2, x2, -8",
+        "decode": "SW x10, 0(x2)",
+        "fetch": "SW x1, 4(x2)",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "46",
+        "writeback": "JAL x1, -28",
+        "memory": "ADDI x2, x2, -8",
+        "execute": "SW x10, 0(x2)",
+        "decode": "SW x1, 4(x2)",
+        "fetch": "BLT x19, x10, 12",
+        "forwarding": "2",
+        "value": "forwarded from execute"
+    },
+    {
+        "id": "47",
+        "writeback": "ADDI x2, x2, -8",
+        "memory": "SW x10, 0(x2)",
+        "execute": "SW x1, 4(x2)",
+        "decode": "BLT x19, x10, 12",
+        "fetch": "ADDI x2, x2, 8",
+        "forwarding": "2",
+        "value": "forwarded from mem"
+    },
+    {
+        "id": "48",
+        "writeback": "SW x10, 0(x2)",
+        "memory": "SW x1, 4(x2)",
+        "execute": "BLT x19, x10, 12",
+        "decode": "ADDI x2, x2, 8",
+        "fetch": "JALR x0, x1, 0",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "49",
+        "writeback": "SW x1, 4(x2)",
+        "memory": "BLT x19, x10, 12",
+        "execute": "ADDI x2, x2, 8",
+        "decode": "JALR x0, x1, 0",
+        "fetch": "ADDI x10, x10, -1",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "50",
+        "writeback": "BLT x19, x10, 12",
+        "memory": "ADDI x2, x2, 8",
+        "execute": "JALR x0, x1, 0",
+        "decode": "-1",
+        "fetch": "LW x20, 0(x2)",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "51",
+        "writeback": "ADDI x2, x2, 8",
+        "memory": "JALR x0, x1, 0",
+        "execute": "-1",
+        "decode": "LW x20, 0(x2)",
+        "fetch": "LW x1, 4(x2)",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "52",
+        "writeback": "JALR x0, x1, 0",
+        "memory": "-1",
+        "execute": "LW x20, 0(x2)",
+        "decode": "LW x1, 4(x2)",
+        "fetch": "ADDI x2, x2, 8",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "53",
+        "writeback": "-1",
+        "memory": "LW x20, 0(x2)",
+        "execute": "LW x1, 4(x2)",
+        "decode": "ADDI x2, x2, 8",
+        "fetch": "MUL x10, x10, x20",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "54",
+        "writeback": "LW x20, 0(x2)",
+        "memory": "LW x1, 4(x2)",
+        "execute": "ADDI x2, x2, 8",
+        "decode": "MUL x10, x10, x20",
+        "fetch": "JALR x0, x1, 0",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "55",
+        "writeback": "LW x1, 4(x2)",
+        "memory": "ADDI x2, x2, 8",
+        "execute": "MUL x10, x10, x20",
+        "decode": "JALR x0, x1, 0",
+        "fetch": "-1",
+        "forwarding": "3",
+        "value": "forwarded from mem"
+    },
+    {
+        "id": "56",
+        "writeback": "ADDI x2, x2, 8",
+        "memory": "MUL x10, x10, x20",
+        "execute": "JALR x0, x1, 0",
+        "decode": "-1",
+        "fetch": "LW x20, 0(x2)",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "57",
+        "writeback": "MUL x10, x10, x20",
+        "memory": "JALR x0, x1, 0",
+        "execute": "-1",
+        "decode": "LW x20, 0(x2)",
+        "fetch": "LW x1, 4(x2)",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "58",
+        "writeback": "JALR x0, x1, 0",
+        "memory": "-1",
+        "execute": "LW x20, 0(x2)",
+        "decode": "LW x1, 4(x2)",
+        "fetch": "ADDI x2, x2, 8",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "59",
+        "writeback": "-1",
+        "memory": "LW x20, 0(x2)",
+        "execute": "LW x1, 4(x2)",
+        "decode": "ADDI x2, x2, 8",
+        "fetch": "MUL x10, x10, x20",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "60",
+        "writeback": "LW x20, 0(x2)",
+        "memory": "LW x1, 4(x2)",
+        "execute": "ADDI x2, x2, 8",
+        "decode": "MUL x10, x10, x20",
+        "fetch": "JALR x0, x1, 0",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "61",
+        "writeback": "LW x1, 4(x2)",
+        "memory": "ADDI x2, x2, 8",
+        "execute": "MUL x10, x10, x20",
+        "decode": "JALR x0, x1, 0",
+        "fetch": "LW x20, 0(x2)",
+        "forwarding": "3",
+        "value": "forwarded from mem"
+    },
+    {
+        "id": "62",
+        "writeback": "ADDI x2, x2, 8",
+        "memory": "MUL x10, x10, x20",
+        "execute": "JALR x0, x1, 0",
+        "decode": "LW x20, 0(x2)",
+        "fetch": "LW x1, 4(x2)",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "63",
+        "writeback": "MUL x10, x10, x20",
+        "memory": "JALR x0, x1, 0",
+        "execute": "LW x20, 0(x2)",
+        "decode": "LW x1, 4(x2)",
+        "fetch": "ADDI x2, x2, 8",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "64",
+        "writeback": "JALR x0, x1, 0",
+        "memory": "LW x20, 0(x2)",
+        "execute": "LW x1, 4(x2)",
+        "decode": "ADDI x2, x2, 8",
+        "fetch": "MUL x10, x10, x20",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "65",
+        "writeback": "LW x20, 0(x2)",
+        "memory": "LW x1, 4(x2)",
+        "execute": "ADDI x2, x2, 8",
+        "decode": "MUL x10, x10, x20",
+        "fetch": "JALR x0, x1, 0",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "66",
+        "writeback": "LW x1, 4(x2)",
+        "memory": "ADDI x2, x2, 8",
+        "execute": "MUL x10, x10, x20",
+        "decode": "JALR x0, x1, 0",
+        "fetch": "LW x20, 0(x2)",
+        "forwarding": "3",
+        "value": "forwarded from mem"
+    },
+    {
+        "id": "67",
+        "writeback": "ADDI x2, x2, 8",
+        "memory": "MUL x10, x10, x20",
+        "execute": "JALR x0, x1, 0",
+        "decode": "LW x20, 0(x2)",
+        "fetch": "LW x1, 4(x2)",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "68",
+        "writeback": "MUL x10, x10, x20",
+        "memory": "JALR x0, x1, 0",
+        "execute": "LW x20, 0(x2)",
+        "decode": "LW x1, 4(x2)",
+        "fetch": "ADDI x2, x2, 8",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "69",
+        "writeback": "JALR x0, x1, 0",
+        "memory": "LW x20, 0(x2)",
+        "execute": "LW x1, 4(x2)",
+        "decode": "ADDI x2, x2, 8",
+        "fetch": "MUL x10, x10, x20",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "70",
+        "writeback": "LW x20, 0(x2)",
+        "memory": "LW x1, 4(x2)",
+        "execute": "ADDI x2, x2, 8",
+        "decode": "MUL x10, x10, x20",
+        "fetch": "JALR x0, x1, 0",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "71",
+        "writeback": "LW x1, 4(x2)",
+        "memory": "ADDI x2, x2, 8",
+        "execute": "MUL x10, x10, x20",
+        "decode": "JALR x0, x1, 0",
+        "fetch": "LW x20, 0(x2)",
+        "forwarding": "3",
+        "value": "forwarded from mem"
+    },
+    {
+        "id": "72",
+        "writeback": "ADDI x2, x2, 8",
+        "memory": "MUL x10, x10, x20",
+        "execute": "JALR x0, x1, 0",
+        "decode": "LW x20, 0(x2)",
+        "fetch": "LW x1, 4(x2)",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "73",
+        "writeback": "MUL x10, x10, x20",
+        "memory": "JALR x0, x1, 0",
+        "execute": "LW x20, 0(x2)",
+        "decode": "LW x1, 4(x2)",
+        "fetch": "ADDI x2, x2, 8",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "74",
+        "writeback": "JALR x0, x1, 0",
+        "memory": "LW x20, 0(x2)",
+        "execute": "LW x1, 4(x2)",
+        "decode": "ADDI x2, x2, 8",
+        "fetch": "MUL x10, x10, x20",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "75",
+        "writeback": "LW x20, 0(x2)",
+        "memory": "LW x1, 4(x2)",
+        "execute": "ADDI x2, x2, 8",
+        "decode": "MUL x10, x10, x20",
+        "fetch": "JALR x0, x1, 0",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "76",
+        "writeback": "LW x1, 4(x2)",
+        "memory": "ADDI x2, x2, 8",
+        "execute": "MUL x10, x10, x20",
+        "decode": "JALR x0, x1, 0",
+        "fetch": "LW x20, 0(x2)",
+        "forwarding": "3",
+        "value": "forwarded from mem"
+    },
+    {
+        "id": "77",
+        "writeback": "ADDI x2, x2, 8",
+        "memory": "MUL x10, x10, x20",
+        "execute": "JALR x0, x1, 0",
+        "decode": "-1",
+        "fetch": "BEQ x0, x0, 56",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "78",
+        "writeback": "MUL x10, x10, x20",
+        "memory": "JALR x0, x1, 0",
+        "execute": "-1",
+        "decode": "BEQ x0, x0, 56",
+        "fetch": "ADDI x2, x2, -8",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "79",
+        "writeback": "JALR x0, x1, 0",
+        "memory": "-1",
+        "execute": "BEQ x0, x0, 56",
+        "decode": "-1",
+        "fetch": "-1",
+        "forwarding": "-1",
+        "value": "-1"
+    },
+    {
+        "id": "80",
+        "writeback": "-1",
+        "memory": "BEQ x0, x0, 56",
+        "execute": "-1",
+        "decode": "-1",
+        "fetch": "-1",
+        "forwarding": "-1",
+        "value": "-1"
+    }
+]

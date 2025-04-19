@@ -22,8 +22,3 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-/src/Components/cycle.json
-/src/Components/data.json
-/src/Components/reg.json
-/src/Components/stats.json
-

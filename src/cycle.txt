@@ -1,0 +1,80 @@
+1  -1  -1  -1  -1  AUIPC x10, 65536  {'to': -1, 'from': ['', '', '', '', '']}
+2  -1  -1  -1  AUIPC x10, 65536  LW x10, 0(x10)  {'to': -1, 'from': ['', '', '', '', '']}
+3  -1  -1  AUIPC x10, 65536  LW x10, 0(x10)  ADDI x19, x0, 1  {'to': -1, 'from': ['', '', '', '', '']}
+4  -1  AUIPC x10, 65536  LW x10, 0(x10)  ADDI x19, x0, 1  JAL x1, 8  {'to': -1, 'from': ['', '', 'forwarded from execute', '', '']}
+5  AUIPC x10, 65536  LW x10, 0(x10)  ADDI x19, x0, 1  JAL x1, 8  BEQ x0, x0, 56  {'to': -1, 'from': ['', '', '', '', '']}
+6  LW x10, 0(x10)  ADDI x19, x0, 1  JAL x1, 8  -1  ADDI x2, x2, -8  {'to': -1, 'from': ['', '', '', '', '']}
+7  ADDI x19, x0, 1  JAL x1, 8  -1  ADDI x2, x2, -8  SW x10, 0(x2)  {'to': -1, 'from': ['', '', '', '', '']}
+8  JAL x1, 8  -1  ADDI x2, x2, -8  SW x10, 0(x2)  SW x1, 4(x2)  {'to': -1, 'from': ['', '', '', '', '']}
+9  -1  ADDI x2, x2, -8  SW x10, 0(x2)  SW x1, 4(x2)  BLT x19, x10, 12  {'to': -1, 'from': ['', '', 'forwarded from execute', '', '']}
+10  ADDI x2, x2, -8  SW x10, 0(x2)  SW x1, 4(x2)  BLT x19, x10, 12  ADDI x2, x2, 8  {'to': -1, 'from': ['', '', 'forwarded from mem', '', '']}
+11  SW x10, 0(x2)  SW x1, 4(x2)  BLT x19, x10, 12  -1  ADDI x10, x10, -1  {'to': -1, 'from': ['', '', '', '', '']}
+12  SW x1, 4(x2)  BLT x19, x10, 12  -1  ADDI x10, x10, -1  JAL x1, -28  {'to': -1, 'from': ['', '', '', '', '']}
+13  BLT x19, x10, 12  -1  ADDI x10, x10, -1  JAL x1, -28  LW x20, 0(x2)  {'to': -1, 'from': ['', '', '', '', '']}
+14  -1  ADDI x10, x10, -1  JAL x1, -28  -1  ADDI x2, x2, -8  {'to': -1, 'from': ['', '', '', '', '']}
+15  ADDI x10, x10, -1  JAL x1, -28  -1  ADDI x2, x2, -8  SW x10, 0(x2)  {'to': -1, 'from': ['', '', '', '', '']}
+16  JAL x1, -28  -1  ADDI x2, x2, -8  SW x10, 0(x2)  SW x1, 4(x2)  {'to': -1, 'from': ['', '', '', '', '']}
+17  -1  ADDI x2, x2, -8  SW x10, 0(x2)  SW x1, 4(x2)  BLT x19, x10, 12  {'to': -1, 'from': ['', '', 'forwarded from execute', '', '']}
+18  ADDI x2, x2, -8  SW x10, 0(x2)  SW x1, 4(x2)  BLT x19, x10, 12  AUIPC x10, 65536  {'to': -1, 'from': ['', '', 'forwarded from mem', '', '']}
+19  SW x10, 0(x2)  SW x1, 4(x2)  BLT x19, x10, 12  -1  ADDI x10, x10, -1  {'to': -1, 'from': ['', '', '', '', '']}
+20  SW x1, 4(x2)  BLT x19, x10, 12  -1  ADDI x10, x10, -1  JAL x1, -28  {'to': -1, 'from': ['', '', '', '', '']}
+21  BLT x19, x10, 12  -1  ADDI x10, x10, -1  JAL x1, -28  AUIPC x10, 65536  {'to': -1, 'from': ['', '', '', '', '']}
+22  -1  ADDI x10, x10, -1  JAL x1, -28  -1  ADDI x2, x2, -8  {'to': -1, 'from': ['', '', '', '', '']}
+23  ADDI x10, x10, -1  JAL x1, -28  -1  ADDI x2, x2, -8  SW x10, 0(x2)  {'to': -1, 'from': ['', '', '', '', '']}
+24  JAL x1, -28  -1  ADDI x2, x2, -8  SW x10, 0(x2)  SW x1, 4(x2)  {'to': -1, 'from': ['', '', '', '', '']}
+25  -1  ADDI x2, x2, -8  SW x10, 0(x2)  SW x1, 4(x2)  BLT x19, x10, 12  {'to': -1, 'from': ['', '', 'forwarded from execute', '', '']}
+26  ADDI x2, x2, -8  SW x10, 0(x2)  SW x1, 4(x2)  BLT x19, x10, 12  ADDI x2, x2, 8  {'to': -1, 'from': ['', '', 'forwarded from mem', '', '']}
+27  SW x10, 0(x2)  SW x1, 4(x2)  BLT x19, x10, 12  -1  ADDI x10, x10, -1  {'to': -1, 'from': ['', '', '', '', '']}
+28  SW x1, 4(x2)  BLT x19, x10, 12  -1  ADDI x10, x10, -1  JAL x1, -28  {'to': -1, 'from': ['', '', '', '', '']}
+29  BLT x19, x10, 12  -1  ADDI x10, x10, -1  JAL x1, -28  ADDI x2, x2, -8  {'to': -1, 'from': ['', '', '', '', '']}
+30  -1  ADDI x10, x10, -1  JAL x1, -28  ADDI x2, x2, -8  SW x10, 0(x2)  {'to': -1, 'from': ['', '', '', '', '']}
+31  ADDI x10, x10, -1  JAL x1, -28  ADDI x2, x2, -8  SW x10, 0(x2)  SW x1, 4(x2)  {'to': -1, 'from': ['', '', '', '', '']}
+32  JAL x1, -28  ADDI x2, x2, -8  SW x10, 0(x2)  SW x1, 4(x2)  BLT x19, x10, 12  {'to': -1, 'from': ['', '', 'forwarded from execute', '', '']}
+33  ADDI x2, x2, -8  SW x10, 0(x2)  SW x1, 4(x2)  BLT x19, x10, 12  ADDI x2, x2, 8  {'to': -1, 'from': ['', '', 'forwarded from mem', '', '']}
+34  SW x10, 0(x2)  SW x1, 4(x2)  BLT x19, x10, 12  -1  ADDI x10, x10, -1  {'to': -1, 'from': ['', '', '', '', '']}
+35  SW x1, 4(x2)  BLT x19, x10, 12  -1  ADDI x10, x10, -1  JAL x1, -28  {'to': -1, 'from': ['', '', '', '', '']}
+36  BLT x19, x10, 12  -1  ADDI x10, x10, -1  JAL x1, -28  ADDI x2, x2, -8  {'to': -1, 'from': ['', '', '', '', '']}
+37  -1  ADDI x10, x10, -1  JAL x1, -28  ADDI x2, x2, -8  SW x10, 0(x2)  {'to': -1, 'from': ['', '', '', '', '']}
+38  ADDI x10, x10, -1  JAL x1, -28  ADDI x2, x2, -8  SW x10, 0(x2)  SW x1, 4(x2)  {'to': -1, 'from': ['', '', '', '', '']}
+39  JAL x1, -28  ADDI x2, x2, -8  SW x10, 0(x2)  SW x1, 4(x2)  BLT x19, x10, 12  {'to': -1, 'from': ['', '', 'forwarded from execute', '', '']}
+40  ADDI x2, x2, -8  SW x10, 0(x2)  SW x1, 4(x2)  BLT x19, x10, 12  ADDI x2, x2, 8  {'to': -1, 'from': ['', '', 'forwarded from mem', '', '']}
+41  SW x10, 0(x2)  SW x1, 4(x2)  BLT x19, x10, 12  -1  ADDI x10, x10, -1  {'to': -1, 'from': ['', '', '', '', '']}
+42  SW x1, 4(x2)  BLT x19, x10, 12  -1  ADDI x10, x10, -1  JAL x1, -28  {'to': -1, 'from': ['', '', '', '', '']}
+43  BLT x19, x10, 12  -1  ADDI x10, x10, -1  JAL x1, -28  ADDI x2, x2, -8  {'to': -1, 'from': ['', '', '', '', '']}
+44  -1  ADDI x10, x10, -1  JAL x1, -28  ADDI x2, x2, -8  SW x10, 0(x2)  {'to': -1, 'from': ['', '', '', '', '']}
+45  ADDI x10, x10, -1  JAL x1, -28  ADDI x2, x2, -8  SW x10, 0(x2)  SW x1, 4(x2)  {'to': -1, 'from': ['', '', '', '', '']}
+46  JAL x1, -28  ADDI x2, x2, -8  SW x10, 0(x2)  SW x1, 4(x2)  BLT x19, x10, 12  {'to': -1, 'from': ['', '', 'forwarded from execute', '', '']}
+47  ADDI x2, x2, -8  SW x10, 0(x2)  SW x1, 4(x2)  BLT x19, x10, 12  ADDI x2, x2, 8  {'to': -1, 'from': ['', '', 'forwarded from mem', '', '']}
+48  SW x10, 0(x2)  SW x1, 4(x2)  BLT x19, x10, 12  ADDI x2, x2, 8  JALR x0, x1, 0  {'to': -1, 'from': ['', '', '', '', '']}
+49  SW x1, 4(x2)  BLT x19, x10, 12  ADDI x2, x2, 8  JALR x0, x1, 0  ADDI x10, x10, -1  {'to': -1, 'from': ['', '', '', '', '']}
+50  BLT x19, x10, 12  ADDI x2, x2, 8  JALR x0, x1, 0  -1  LW x20, 0(x2)  {'to': -1, 'from': ['', '', '', '', '']}
+51  ADDI x2, x2, 8  JALR x0, x1, 0  -1  LW x20, 0(x2)  LW x1, 4(x2)  {'to': -1, 'from': ['', '', '', '', '']}
+52  JALR x0, x1, 0  -1  LW x20, 0(x2)  LW x1, 4(x2)  ADDI x2, x2, 8  {'to': -1, 'from': ['', '', '', '', '']}
+53  -1  LW x20, 0(x2)  LW x1, 4(x2)  ADDI x2, x2, 8  MUL x10, x10, x20  {'to': -1, 'from': ['', '', '', '', '']}
+54  LW x20, 0(x2)  LW x1, 4(x2)  ADDI x2, x2, 8  MUL x10, x10, x20  JALR x0, x1, 0  {'to': -1, 'from': ['', '', '', '', '']}
+55  LW x1, 4(x2)  ADDI x2, x2, 8  MUL x10, x10, x20  JALR x0, x1, 0  -1  {'to': -1, 'from': ['', '', '', 'forwarded from mem', '']}
+56  ADDI x2, x2, 8  MUL x10, x10, x20  JALR x0, x1, 0  -1  LW x20, 0(x2)  {'to': -1, 'from': ['', '', '', '', '']}
+57  MUL x10, x10, x20  JALR x0, x1, 0  -1  LW x20, 0(x2)  LW x1, 4(x2)  {'to': -1, 'from': ['', '', '', '', '']}
+58  JALR x0, x1, 0  -1  LW x20, 0(x2)  LW x1, 4(x2)  ADDI x2, x2, 8  {'to': -1, 'from': ['', '', '', '', '']}
+59  -1  LW x20, 0(x2)  LW x1, 4(x2)  ADDI x2, x2, 8  MUL x10, x10, x20  {'to': -1, 'from': ['', '', '', '', '']}
+60  LW x20, 0(x2)  LW x1, 4(x2)  ADDI x2, x2, 8  MUL x10, x10, x20  JALR x0, x1, 0  {'to': -1, 'from': ['', '', '', '', '']}
+61  LW x1, 4(x2)  ADDI x2, x2, 8  MUL x10, x10, x20  JALR x0, x1, 0  LW x20, 0(x2)  {'to': -1, 'from': ['', '', '', 'forwarded from mem', '']}
+62  ADDI x2, x2, 8  MUL x10, x10, x20  JALR x0, x1, 0  LW x20, 0(x2)  LW x1, 4(x2)  {'to': -1, 'from': ['', '', '', '', '']}
+63  MUL x10, x10, x20  JALR x0, x1, 0  LW x20, 0(x2)  LW x1, 4(x2)  ADDI x2, x2, 8  {'to': -1, 'from': ['', '', '', '', '']}
+64  JALR x0, x1, 0  LW x20, 0(x2)  LW x1, 4(x2)  ADDI x2, x2, 8  MUL x10, x10, x20  {'to': -1, 'from': ['', '', '', '', '']}
+65  LW x20, 0(x2)  LW x1, 4(x2)  ADDI x2, x2, 8  MUL x10, x10, x20  JALR x0, x1, 0  {'to': -1, 'from': ['', '', '', '', '']}
+66  LW x1, 4(x2)  ADDI x2, x2, 8  MUL x10, x10, x20  JALR x0, x1, 0  LW x20, 0(x2)  {'to': -1, 'from': ['', '', '', 'forwarded from mem', '']}
+67  ADDI x2, x2, 8  MUL x10, x10, x20  JALR x0, x1, 0  LW x20, 0(x2)  LW x1, 4(x2)  {'to': -1, 'from': ['', '', '', '', '']}
+68  MUL x10, x10, x20  JALR x0, x1, 0  LW x20, 0(x2)  LW x1, 4(x2)  ADDI x2, x2, 8  {'to': -1, 'from': ['', '', '', '', '']}
+69  JALR x0, x1, 0  LW x20, 0(x2)  LW x1, 4(x2)  ADDI x2, x2, 8  MUL x10, x10, x20  {'to': -1, 'from': ['', '', '', '', '']}
+70  LW x20, 0(x2)  LW x1, 4(x2)  ADDI x2, x2, 8  MUL x10, x10, x20  JALR x0, x1, 0  {'to': -1, 'from': ['', '', '', '', '']}
+71  LW x1, 4(x2)  ADDI x2, x2, 8  MUL x10, x10, x20  JALR x0, x1, 0  LW x20, 0(x2)  {'to': -1, 'from': ['', '', '', 'forwarded from mem', '']}
+72  ADDI x2, x2, 8  MUL x10, x10, x20  JALR x0, x1, 0  LW x20, 0(x2)  LW x1, 4(x2)  {'to': -1, 'from': ['', '', '', '', '']}
+73  MUL x10, x10, x20  JALR x0, x1, 0  LW x20, 0(x2)  LW x1, 4(x2)  ADDI x2, x2, 8  {'to': -1, 'from': ['', '', '', '', '']}
+74  JALR x0, x1, 0  LW x20, 0(x2)  LW x1, 4(x2)  ADDI x2, x2, 8  MUL x10, x10, x20  {'to': -1, 'from': ['', '', '', '', '']}
+75  LW x20, 0(x2)  LW x1, 4(x2)  ADDI x2, x2, 8  MUL x10, x10, x20  JALR x0, x1, 0  {'to': -1, 'from': ['', '', '', '', '']}
+76  LW x1, 4(x2)  ADDI x2, x2, 8  MUL x10, x10, x20  JALR x0, x1, 0  LW x20, 0(x2)  {'to': -1, 'from': ['', '', '', 'forwarded from mem', '']}
+77  ADDI x2, x2, 8  MUL x10, x10, x20  JALR x0, x1, 0  -1  BEQ x0, x0, 56  {'to': -1, 'from': ['', '', '', '', '']}
+78  MUL x10, x10, x20  JALR x0, x1, 0  -1  BEQ x0, x0, 56  ADDI x2, x2, -8  {'to': -1, 'from': ['', '', '', '', '']}
+79  JALR x0, x1, 0  -1  BEQ x0, x0, 56  -1  -1  {'to': -1, 'from': ['', '', '', '', '']}
+80  -1  BEQ x0, x0, 56  -1  -1  -1  {'to': -1, 'from': ['', '', '', '', '']}

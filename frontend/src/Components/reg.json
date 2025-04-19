@@ -1,0 +1,194 @@
+[
+    {
+        "register": "x0",
+        "hex": "0X00000000",
+        "binary": "0",
+        "decimal": "0"
+    },
+    {
+        "register": "x1",
+        "hex": "0X00000010",
+        "binary": "10000",
+        "decimal": "16"
+    },
+    {
+        "register": "x2",
+        "hex": "0X7FFFFFF0",
+        "binary": "1111111111111111111111111110000",
+        "decimal": "2147483632"
+    },
+    {
+        "register": "x3",
+        "hex": "0X10000000",
+        "binary": "10000000000000000000000000000",
+        "decimal": "268435456"
+    },
+    {
+        "register": "x4",
+        "hex": "0X00000000",
+        "binary": "0",
+        "decimal": "0"
+    },
+    {
+        "register": "x5",
+        "hex": "0X00000000",
+        "binary": "0",
+        "decimal": "0"
+    },
+    {
+        "register": "x6",
+        "hex": "0X00000000",
+        "binary": "0",
+        "decimal": "0"
+    },
+    {
+        "register": "x7",
+        "hex": "0X00000000",
+        "binary": "0",
+        "decimal": "0"
+    },
+    {
+        "register": "x8",
+        "hex": "0X00000000",
+        "binary": "0",
+        "decimal": "0"
+    },
+    {
+        "register": "x9",
+        "hex": "0X00000000",
+        "binary": "0",
+        "decimal": "0"
+    },
+    {
+        "register": "x10",
+        "hex": "0X000002D0",
+        "binary": "1011010000",
+        "decimal": "720"
+    },
+    {
+        "register": "x11",
+        "hex": "0X00000000",
+        "binary": "0",
+        "decimal": "0"
+    },
+    {
+        "register": "x12",
+        "hex": "0X00000000",
+        "binary": "0",
+        "decimal": "0"
+    },
+    {
+        "register": "x13",
+        "hex": "0X00000000",
+        "binary": "0",
+        "decimal": "0"
+    },
+    {
+        "register": "x14",
+        "hex": "0X00000000",
+        "binary": "0",
+        "decimal": "0"
+    },
+    {
+        "register": "x15",
+        "hex": "0X00000000",
+        "binary": "0",
+        "decimal": "0"
+    },
+    {
+        "register": "x16",
+        "hex": "0X00000000",
+        "binary": "0",
+        "decimal": "0"
+    },
+    {
+        "register": "x17",
+        "hex": "0X00000000",
+        "binary": "0",
+        "decimal": "0"
+    },
+    {
+        "register": "x18",
+        "hex": "0X00000000",
+        "binary": "0",
+        "decimal": "0"
+    },
+    {
+        "register": "x19",
+        "hex": "0X00000001",
+        "binary": "1",
+        "decimal": "1"
+    },
+    {
+        "register": "x20",
+        "hex": "0X00000006",
+        "binary": "110",
+        "decimal": "6"
+    },
+    {
+        "register": "x21",
+        "hex": "0X00000000",
+        "binary": "0",
+        "decimal": "0"
+    },
+    {
+        "register": "x22",
+        "hex": "0X00000000",
+        "binary": "0",
+        "decimal": "0"
+    },
+    {
+        "register": "x23",
+        "hex": "0X00000000",
+        "binary": "0",
+        "decimal": "0"
+    },
+    {
+        "register": "x24",
+        "hex": "0X00000000",
+        "binary": "0",
+        "decimal": "0"
+    },
+    {
+        "register": "x25",
+        "hex": "0X00000000",
+        "binary": "0",
+        "decimal": "0"
+    },
+    {
+        "register": "x26",
+        "hex": "0X00000000",
+        "binary": "0",
+        "decimal": "0"
+    },
+    {
+        "register": "x27",
+        "hex": "0X00000000",
+        "binary": "0",
+        "decimal": "0"
+    },
+    {
+        "register": "x28",
+        "hex": "0X00000000",
+        "binary": "0",
+        "decimal": "0"
+    },
+    {
+        "register": "x29",
+        "hex": "0X00000000",
+        "binary": "0",
+        "decimal": "0"
+    },
+    {
+        "register": "x30",
+        "hex": "0X00000000",
+        "binary": "0",
+        "decimal": "0"
+    },
+    {
+        "register": "x31",
+        "hex": "0X00000000",
+        "binary": "0",
+        "decimal": "0"
+    }
+]
